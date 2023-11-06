@@ -105,22 +105,135 @@
 //	return 0;
 //}
 
+//
+//#define N 15
+//#define LEN 15
+//
+//struct names
+//{
+//	char fname[N];
+//	char mname[N];
+//	char lname[N];
+//
+//};
+//
+//struct messages
+//{
+//	char ints_num[LEN];
+//	struct names name;
+//};
 
-#define N 15
+//char* s_gets(char* st, int n)
+//{
+//	char* ret_val;
+//	char* find;
+//
+//	ret_val = fgets(st, n, stdin);
+//
+//	if (ret_val)
+//	{
+//		find = strchr(st, '\n');
+//
+//		if (find)
+//		{
+//			*find = '\0';
+//		}
+//		else
+//		{
+//			while (getchar() != '\n')
+//			{
+//				continue;
+//			}
+//		}
+//	}
+//
+//	return ret_val;
+//
+//}
+//
+//void show_messages(const struct messages pt)
+//{
+//	if (pt.name.mname[0] == '\0')
+//	{
+//		printf("%s,%s", pt.name.fname, pt.name.lname);
+//		printf(" -- %s\n", pt.ints_num);
+//	}
+//	else
+//	{
+//		printf("%s,%s %c.", pt.name.fname, pt.name.lname, pt.name.mname[0]);
+//		printf(" -- %s\n", pt.ints_num);
+//	}
+//
+//	return;
+//}
+//
+//
+//int main1(void)
+//{
+//	int i = 0;
+//	int count = 0;
+//	struct messages m[5];
+//
+//	printf("Please enter the insurance number:\n");
+//	printf("Please [enter] at the start of a line to stop.\n");
+//
+//	while (count < 5 && s_gets(m[count].ints_num, LEN) && m[count].ints_num[0] != '\n')
+//	{
+//		printf("Now enter the former name:\n");
+//		s_gets(m[count].name.fname, N);
+//		printf("Now enter the middle name(without,[enter] to the next):\n");
+//		s_gets(m[count].name.mname, N);
+//		printf("Now enter last name:\n");
+//		s_gets(m[count].name.lname, N);
+//
+//		if (count++ < 5)
+//		{
+//			printf("Enter the next insurance number:\n");
+//		}
+//	}
+//
+//	if (count > 0)
+//	{
+//		printf("All number messages:\n");
+//		for (i = 0; i < count; i++)
+//		{
+//			show_messages(m[i]);
+//		}
+//	}
+//	else
+//	{
+//		printf("No data!\n");
+//	}
+//	return 0;
+//}
+
+// 编写一个程序满足下面的要求
+// a. name 结构体，两个成员：名 and 姓
+// b. student 结构体，三个成员：name grade[(float)[3]] 和 一个变量存储3个分数平均数
+// c. main()函数中声明 一个内含CSIZE(CSIZE = 4)个student 类型结构的数组，
+//    并初始化这些结构的名字部分。
+// d.获取每个学生的成绩，提示用户输入学生的姓名和分数，分数存储到 grade 数组相应的结构中。
+// 可在main()函数或其他函数中用循环来完成
+// e. 计算每个结构体的平均分，赋给合适的成员
+// f. 打印每个结构的信息
+// g. 打印班级的平均分，即所有结构的 数值成员的平均值
+//
+
+#define CSIZE 4
 #define LEN 15
+#define N 3
 
-struct names
+struct name
 {
-	char fname[N];
-	char mname[N];
-	char lname[N];
-
+	char names[LEN];
+	char surnames[LEN];
 };
 
-struct messages
+struct student
 {
-	char ints_num[LEN];
-	struct names name;
+	struct name name;
+	float grade[N];
+	float average;
 };
 
 char* s_gets(char* st, int n)
@@ -140,89 +253,49 @@ char* s_gets(char* st, int n)
 		}
 		else
 		{
-			while (getchar() != '\n')
+			while (getchar() != '\n') 
 			{
 				continue;
 			}
 		}
-	}
 
+	}
 	return ret_val;
-
-}
-
-void show_messages(const struct messages pt)
-{
-	if (pt.name.mname[0] == '\0')
-	{
-		printf("%s,%s", pt.name.fname, pt.name.lname);
-		printf(" -- %s\n", pt.ints_num);
-	}
-	else
-	{
-		printf("%s,%s %c.", pt.name.fname, pt.name.lname, pt.name.mname[0]);
-		printf(" -- %s\n", pt.ints_num);
-	}
-
-	return;
 }
 
 
-int main(void)
+int main()
 {
-	int i = 0;
 	int count = 0;
-	struct messages m[5];
 
-	printf("Please enter the insurance number:\n");
-	printf("Please [enter] at the start of a line to stop.\n");
+	struct student stu[CSIZE];
 
-	while (count < 5 && s_gets(m[count].ints_num, LEN) && m[count].ints_num[0] != '\n')
+	//initial the names of each element of struct 
+
+	for (int i = 0; i < CSIZE; i++)
 	{
-		printf("Now enter the former name:\n");
-		s_gets(m[count].name.fname, N);
-		printf("Now enter the middle name(without,[enter] to the next):\n");
-		s_gets(m[count].name.mname, N);
-		printf("Now enter last name:\n");
-		s_gets(m[count].name.lname, N);
-
-		if (count++ < 5)
-		{
-			printf("Enter the next insurance number:\n");
-		}
+		strcpy(stu[i].name.names, "hello");
+		strcpy(stu[i].name.surnames, "world");
 	}
 
-	if (count > 0)
+	putchar('\n');
+	
+	while (count<4)
 	{
-		printf("All number messages:\n");
-		for (i = 0; i < count; i++)
-		{
-			show_messages(m[i]);
-		}
+		printf("please enter %d-th stdent information:\n", count + 1);
+		printf("names: ");
+		s_gets(stu[count].name.names, LEN);
+		printf("surnames: ");
+		s_gets(stu[count].name.surnames, LEN);
+
+
 	}
-	else
-	{
-		printf("No data!\n");
-	}
+
+
+
+
+
 	return 0;
 }
-
-// 编写一个程序满足下面的要求
-// a. name 结构体，两个成员：名 and 姓
-// b. student 结构体，三个成员：name grade[(float)[3]] 和 一个变量存储3个分数平均数
-// c. main()函数中声明 一个内含CSIZE(CSIZE = 4)个student 类型结构的数组，
-//    并初始化这些结构的名字部分。
-// d.获取每个学生的成绩，提示用户输入学生的姓名和分数，分数存储到 grade 数组相应的结构中。
-// 可在main()函数或其他函数中用循环来完成
-// e. 计算每个结构体的平均分，赋给合适的成员
-// f. 打印每个结构的信息
-// g. 打印班级的平均分，即所有结构的 数值成员的平均值
-//
-
-
-
-
-
-
 
 
