@@ -253,7 +253,7 @@ char* s_gets(char* st, int n)
 		}
 		else
 		{
-			while (getchar() != '\n') 
+			while (getchar() != '\n')
 			{
 				continue;
 			}
@@ -261,6 +261,21 @@ char* s_gets(char* st, int n)
 
 	}
 	return ret_val;
+}
+
+void getaverage(struct student* stu, int n)
+{
+	for (int i = 0; i < n; i++)
+	{
+		stu[i].average = (stu[i].grade[1] + stu[i].grade[2] + stu[i].grade[3]) / 3.0;
+	}
+	return;
+}
+
+void showstudent(struct student* stu, int n)
+{
+
+
 }
 
 
@@ -279,17 +294,29 @@ int main()
 	}
 
 	putchar('\n');
-	
-	while (count<4)
+
+	while (count < 4)
 	{
-		printf("please enter %d-th stdent information:\n", count + 1);
+		printf("please enter %d-th stdent information and scores:\n", count + 1);
 		printf("names: ");
 		s_gets(stu[count].name.names, LEN);
 		printf("surnames: ");
 		s_gets(stu[count].name.surnames, LEN);
+		printf("threes scores( >0 ): ");
+		scanf("%lf %lf %lf",
+			stu[count].grade[1], stu[count].grade[2], stu[count].grade[3]);
 
+		count++;
 
+		putchar('\n');
 	}
+
+	//get the average of scores
+	getaverage(stu,CSIZE);
+
+	//show the information of student
+
+	showstudent(stu, CSIZE);
 
 
 
