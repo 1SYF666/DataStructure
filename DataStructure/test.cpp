@@ -267,15 +267,22 @@ void getaverage(struct student* stu, int n)
 {
 	for (int i = 0; i < n; i++)
 	{
-		stu[i].average = (stu[i].grade[1] + stu[i].grade[2] + stu[i].grade[3]) / 3.0;
+		stu[i].average = (stu[i].grade[0] + stu[i].grade[1] + stu[i].grade[2]) / 3.0;
 	}
 	return;
 }
 
 void showstudent(struct student* stu, int n)
 {
-
-
+	printf("Data for all studens information:\n");
+	printf("surnames\tnames\tscores1\tscores2\tscores3\taverage:\n");
+	for (int i = 0; i < n; i++)
+	{
+		printf("%s\t\t%s\t%5.2f\t%5.2f\t%5.2f\t%5.2f\n",
+			stu[i].name.surnames, stu[i].name.names, stu[i].grade[0],
+			stu[i].grade[1], stu[i].grade[2], stu[i].average);
+	}
+	return;
 }
 
 
@@ -303,8 +310,13 @@ int main()
 		printf("surnames: ");
 		s_gets(stu[count].name.surnames, LEN);
 		printf("threes scores( >0 ): ");
-		scanf("%lf %lf %lf",
-			stu[count].grade[1], stu[count].grade[2], stu[count].grade[3]);
+		scanf("%f %f %f",
+			&stu[count].grade[0], &stu[count].grade[1], &stu[count].grade[2]);
+
+		while (getchar() != '\n')
+		{
+			continue;
+		}
 
 		count++;
 
