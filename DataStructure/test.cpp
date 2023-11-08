@@ -219,122 +219,231 @@
 // g. 打印班级的平均分，即所有结构的 数值成员的平均值
 //
 
-#define CSIZE 4
+//#define CSIZE 4
+//#define LEN 15
+//#define N 3
+//
+//struct name
+//{
+//	char names[LEN];
+//	char surnames[LEN];
+//};
+//
+//struct student
+//{
+//	struct name name;
+//	float grade[N];
+//	float average;
+//};
+//
+//char* s_gets(char* st, int n)
+//{
+//	char* ret_val;
+//	char* find;
+//
+//	ret_val = fgets(st, n, stdin);
+//
+//	if (ret_val)
+//	{
+//		find = strchr(st, '\n');
+//
+//		if (find)
+//		{
+//			*find = '\0';
+//		}
+//		else
+//		{
+//			while (getchar() != '\n')
+//			{
+//				continue;
+//			}
+//		}
+//
+//	}
+//	return ret_val;
+//}
+//
+//void getaverage(struct student* stu, int n)
+//{
+//	for (int i = 0; i < n; i++)
+//	{
+//		stu[i].average = (stu[i].grade[0] + stu[i].grade[1] + stu[i].grade[2]) / 3.0;
+//	}
+//	return;
+//}
+//
+//void showstudent(struct student* stu, int n)
+//{
+//	printf("Data for all studens information:\n");
+//	printf("surnames\tnames\tscores1\tscores2\tscores3\taverage:\n");
+//	for (int i = 0; i < n; i++)
+//	{
+//		printf("%s\t\t%s\t%5.2f\t%5.2f\t%5.2f\t%5.2f\n",
+//			stu[i].name.surnames, stu[i].name.names, stu[i].grade[0],
+//			stu[i].grade[1], stu[i].grade[2], stu[i].average);
+//	}
+//	return;
+//}
+//
+//
+//int main()
+//{
+//	int count = 0;
+//
+//	struct student stu[CSIZE];
+//
+//	//initial the names of each element of struct 
+//
+//	for (int i = 0; i < CSIZE; i++)
+//	{
+//		strcpy(stu[i].name.names, "hello");
+//		strcpy(stu[i].name.surnames, "world");
+//	}
+//
+//	putchar('\n');
+//
+//	while (count < 4)
+//	{
+//		printf("please enter %d-th stdent information and scores:\n", count + 1);
+//		printf("names: ");
+//		s_gets(stu[count].name.names, LEN);
+//		printf("surnames: ");
+//		s_gets(stu[count].name.surnames, LEN);
+//		printf("threes scores( >0 ): ");
+//		scanf("%f %f %f",
+//			&stu[count].grade[0], &stu[count].grade[1], &stu[count].grade[2]);
+//
+//		while (getchar() != '\n')
+//		{
+//			continue;
+//		}
+//
+//		count++;
+//
+//		putchar('\n');
+//	}
+//
+//	//get the average of scores
+//	getaverage(stu,CSIZE);
+//
+//	//show the information of student
+//
+//	showstudent(stu, CSIZE);
+//
+//	return 0;
+//}
+
+
 #define LEN 15
-#define N 3
+#define CSIZE 4
+#define SCORES 3
 
 struct name
 {
-	char names[LEN];
-	char surnames[LEN];
+	char fname[LEN];
+	char lname[LEN];
 };
 
 struct student
 {
-	struct name name;
-	float grade[N];
-	float average;
+	struct name mes;
+	float grade[SCORES];
+	float aver;
 };
 
-char* s_gets(char* st, int n)
+void set_students(struct student ar[], int n)
 {
-	char* ret_val;
-	char* find;
+	int i, j;
 
-	ret_val = fgets(st, n, stdin);
-
-	if (ret_val)
+	for (i = 0; i < n; i++)
 	{
-		find = strchr(st, '\n');
+		printf("Please enter three scores for %s %s:\n",
+				ar[i].mes.fname, ar[i].mes.lname);
 
-		if (find)
+		for (j = 0; j < SCORES; j++)
 		{
-			*find = '\0';
-		}
-		else
-		{
-			while (getchar() != '\n')
+			while (scanf("%f",&ar[i].grade[j])!=1)
 			{
-				continue;
+				while (getchar()!='\n')
+				{
+					continue;
+				}
+				printf("Please enter a number: ");
 			}
 		}
-
-	}
-	return ret_val;
-}
-
-void getaverage(struct student* stu, int n)
-{
-	for (int i = 0; i < n; i++)
-	{
-		stu[i].average = (stu[i].grade[0] + stu[i].grade[1] + stu[i].grade[2]) / 3.0;
 	}
 	return;
 }
 
-void showstudent(struct student* stu, int n)
+void find_averages(struct student ar[], int n)
 {
-	printf("Data for all studens information:\n");
-	printf("surnames\tnames\tscores1\tscores2\tscores3\taverage:\n");
-	for (int i = 0; i < n; i++)
+	int i, j;
+	float sum;
+
+	for (i = 0; i < n; i++)
 	{
-		printf("%s\t\t%s\t%5.2f\t%5.2f\t%5.2f\t%5.2f\n",
-			stu[i].name.surnames, stu[i].name.names, stu[i].grade[0],
-			stu[i].grade[1], stu[i].grade[2], stu[i].average);
+		for (j = 0, sum = 0.0f; j < SCORES; j++)
+		{
+			sum += ar[i].grade[j];
+		}
+		ar[i].aver = sum / SCORES;
+	}
+
+	return;
+}
+
+void show_messages(struct student ar[], int n)
+{
+	int i, j;
+
+	for (i = 0; i < n; i++)
+	{
+		printf("\n%s %s's three scores: ", 
+				ar[i].mes.fname, ar[i].mes.lname);
+
+		for (j = 0; j < SCORES; j++)
+		{
+			printf("%g ", ar[i].grade[j]);
+		}
+		printf("\nAverage: %g\n", ar[i].aver);
 	}
 	return;
 }
+
+void show_averages(struct student ar[], int n)
+{
+	int i = 0;
+	float total;
+
+	for (i = 0, total = 0.0f; i < n; i++)
+	{
+		total += ar[i].aver;
+	}
+
+	printf("\nClass average: %g\n", total / n);
+
+	return;
+}
+
 
 
 int main()
 {
-	int count = 0;
-
-	struct student stu[CSIZE];
-
-	//initial the names of each element of struct 
-
-	for (int i = 0; i < CSIZE; i++)
+	struct student classes[CSIZE] =
 	{
-		strcpy(stu[i].name.names, "hello");
-		strcpy(stu[i].name.surnames, "world");
-	}
+		{"Flip","Snide"},
+		{"Clare","Voyans"},
+		{"Bingo", "Higgs"},
+		{"Fawn", "Hunter"}
+	};
 
-	putchar('\n');
-
-	while (count < 4)
-	{
-		printf("please enter %d-th stdent information and scores:\n", count + 1);
-		printf("names: ");
-		s_gets(stu[count].name.names, LEN);
-		printf("surnames: ");
-		s_gets(stu[count].name.surnames, LEN);
-		printf("threes scores( >0 ): ");
-		scanf("%f %f %f",
-			&stu[count].grade[0], &stu[count].grade[1], &stu[count].grade[2]);
-
-		while (getchar() != '\n')
-		{
-			continue;
-		}
-
-		count++;
-
-		putchar('\n');
-	}
-
-	//get the average of scores
-	getaverage(stu,CSIZE);
-
-	//show the information of student
-
-	showstudent(stu, CSIZE);
-
-
-
+	set_students(classes, CSIZE);
+	find_averages(classes, CSIZE);
+	show_messages(classes, CSIZE);
+	show_averages(classes, CSIZE);
+	
 
 
 	return 0;
 }
-
 
