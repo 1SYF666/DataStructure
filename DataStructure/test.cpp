@@ -1,7 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
+#include <iostream>
+#include <stack>
+using namespace std;
 
 /* reducto.c -- 把您的文件压缩为原来的三分之一 */
 /* reducto.c -- Compress your file to 1/3 of the original */
@@ -333,117 +335,279 @@
 //	return 0;
 //}
 
+//#define LEN 15
+//#define CSIZE 4
+//#define SCORES 3
+//
+//struct name
+//{
+//	char fname[LEN];
+//	char lname[LEN];
+//};
+//
+//struct student
+//{
+//	struct name mes;
+//	float grade[SCORES];
+//	float aver;
+//};
+//
+//void set_students(struct student ar[], int n)
+//{
+//	int i, j;
+//
+//	for (i = 0; i < n; i++)
+//	{
+//		printf("Please enter three scores for %s %s:\n",
+//				ar[i].mes.fname, ar[i].mes.lname);
+//
+//		for (j = 0; j < SCORES; j++)
+//		{
+//			while (scanf("%f",&ar[i].grade[j])!=1)
+//			{
+//				while (getchar()!='\n')
+//				{
+//					continue;
+//				}
+//				printf("Please enter a number: ");
+//			}
+//		}
+//	}
+//	return;
+//}
+//
+//void find_averages(struct student ar[], int n)
+//{
+//	int i, j;
+//	float sum;
+//
+//	for (i = 0; i < n; i++)
+//	{
+//		for (j = 0, sum = 0.0f; j < SCORES; j++)
+//		{
+//			sum += ar[i].grade[j];
+//		}
+//		ar[i].aver = sum / SCORES;
+//	}
+//
+//	return;
+//}
+//
+//void show_messages(struct student ar[], int n)
+//{
+//	int i, j;
+//
+//	for (i = 0; i < n; i++)
+//	{
+//		printf("\n%s %s's three scores: ", 
+//				ar[i].mes.fname, ar[i].mes.lname);
+//
+//		for (j = 0; j < SCORES; j++)
+//		{
+//			printf("%g ", ar[i].grade[j]);
+//		}
+//		printf("\nAverage: %g\n", ar[i].aver);
+//	}
+//	return;
+//}
+//
+//void show_averages(struct student ar[], int n)
+//{
+//	int i = 0;
+//	float total;
+//
+//	for (i = 0, total = 0.0f; i < n; i++)
+//	{
+//		total += ar[i].aver;
+//	}
+//
+//	printf("\nClass average: %g\n", total / n);
+//
+//	return;
+//}
+//
+//
+//
+//int main()
+//{
+//	struct student classes[CSIZE] =
+//	{
+//		{"Flip","Snide"},
+//		{"Clare","Voyans"},
+//		{"Bingo", "Higgs"},
+//		{"Fawn", "Hunter"}
+//	};
+//
+//	set_students(classes, CSIZE);
+//	find_averages(classes, CSIZE);
+//	show_messages(classes, CSIZE);
+//	show_averages(classes, CSIZE);
+//	
+//
+//
+//	return 0;
+//}
 
-#define LEN 15
-#define CSIZE 4
-#define SCORES 3
+//// stack examples
+//// empty堆栈为空则返回真
+//// pop移除栈顶元素
+//// push在栈顶增加元素
+//// size返回栈中元素数目
+//// top返回栈顶元素
+////
+//
+//int main()
+//{
+//	//创建栈
+//	stack<int> s;
+//
+//	//将元素压入栈
+//	for (int i = 0; i < 10; i++)
+//	{
+//		s.push(i);
+//	}
+//	if (!s.empty())
+//	{
+//		cout << "栈不是空的" << endl;
+//	}
+//	cout << "栈中元素的个数为：" << s.size() << endl;
+//
+//	while (!s.empty())
+//	{
+//		cout << " " << s.top(); // 获取栈顶元素
+//		s.pop();                // 弹出栈顶元素
+//	}
+//
+//	cout << endl;
+//
+//	if (s.empty())
+//	{
+//		cout << "栈现在为空" << endl;
+//	}
+//
+//	return 0;
+//}
 
-struct name
-{
-	char fname[LEN];
-	char lname[LEN];
-};
-
-struct student
-{
-	struct name mes;
-	float grade[SCORES];
-	float aver;
-};
-
-void set_students(struct student ar[], int n)
-{
-	int i, j;
-
-	for (i = 0; i < n; i++)
-	{
-		printf("Please enter three scores for %s %s:\n",
-				ar[i].mes.fname, ar[i].mes.lname);
-
-		for (j = 0; j < SCORES; j++)
-		{
-			while (scanf("%f",&ar[i].grade[j])!=1)
-			{
-				while (getchar()!='\n')
-				{
-					continue;
-				}
-				printf("Please enter a number: ");
-			}
-		}
-	}
-	return;
-}
-
-void find_averages(struct student ar[], int n)
-{
-	int i, j;
-	float sum;
-
-	for (i = 0; i < n; i++)
-	{
-		for (j = 0, sum = 0.0f; j < SCORES; j++)
-		{
-			sum += ar[i].grade[j];
-		}
-		ar[i].aver = sum / SCORES;
-	}
-
-	return;
-}
-
-void show_messages(struct student ar[], int n)
-{
-	int i, j;
-
-	for (i = 0; i < n; i++)
-	{
-		printf("\n%s %s's three scores: ", 
-				ar[i].mes.fname, ar[i].mes.lname);
-
-		for (j = 0; j < SCORES; j++)
-		{
-			printf("%g ", ar[i].grade[j]);
-		}
-		printf("\nAverage: %g\n", ar[i].aver);
-	}
-	return;
-}
-
-void show_averages(struct student ar[], int n)
-{
-	int i = 0;
-	float total;
-
-	for (i = 0, total = 0.0f; i < n; i++)
-	{
-		total += ar[i].aver;
-	}
-
-	printf("\nClass average: %g\n", total / n);
-
-	return;
-}
+//// queue
+//// empty() 判断队列是否为空，返回类型为bool
+//// size() 返回队列中元素的个数
+//// front() 返回队列中首元素
+//// back() 返回队列队尾元素
+//// push(ele) 将元素ele插入到队尾
+//// pop 对首元素出队
+//// 
+//
+//#include<queue>
+//
+//int main()
+//{
+//	int ele;
+//	int num;
+//	int last;
+//
+//	queue<int> q;
+//
+//	for (int i = 0; i < 10; i++)
+//	{
+//		q.push(i);
+//	}
+//
+//	if (!q.empty())
+//	{
+//		cout << "队列不是空的" << endl;
+//	}
+//
+//	num = q.size();
+//	cout << "队列q的长度为：" << num << endl;
+//	last = q.back();
+//	cout << "队列q最后一个元素：" << last << endl;
+//
+//	while (!q.empty())
+//	{
+//		ele = q.front();
+//		
+//		cout << ele << " ";
+//
+//		q.pop();
+//	}
+//
+//	cout << endl;
+//
+//	if (q.empty())
+//	{
+//		cout << "队列现在是空的" << endl;
+//	}
+//
+//	return 0;
+//}
 
 
+// vector 动态数组
+// c.clear() 移除容器中的所有数据
+// c.empty() 判断容器是否为空
+// c.erase(pos) 删除pos位置的数据
+// c.erase(beg,end) 删除[beg end]区间的数据
+// c.front() 传回第一个数据
+// c.insert(pos,elem)在pos位置插入一个elem
+// c.pop_back() 删除最后一个元素
+// c.push_back(elem) 在尾部加入一个数据
+// c.resize(num)重新设置该容器的大小
+// c.size()返回容器中实际数据的个数
+// c.begin()返回指向容器第一个元素的迭代器
+// c.end() 返回指向容器最后一个元素的迭代器
+//
+
+#include<vector>
 
 int main()
 {
-	struct student classes[CSIZE] =
+	//声明v
+	vector<int> v;
+	//向向量v中添加数据
+	for (int i = 0; i < 10; i++)
 	{
-		{"Flip","Snide"},
-		{"Clare","Voyans"},
-		{"Bingo", "Higgs"},
-		{"Fawn", "Hunter"}
-	};
+		v.push_back(i);
+	}
+	//从向量V中读取数据后输出
+	for (int i = 0; i < v.size(); i++)
+	{
+		cout << " " << v[i];
+	}
+	cout << endl;
 
-	set_students(classes, CSIZE);
-	find_averages(classes, CSIZE);
-	show_messages(classes, CSIZE);
-	show_averages(classes, CSIZE);
+	//使用迭代器遍历数组 迭代器相当于指针
+	cout << "使用迭代器获取数据" << endl;
+	vector<int>::iterator iter;
+
+	for (iter = v.begin(); iter != v.end(); iter++)
+	{
+		cout << " " << *iter;
+	}
+	cout << endl;
+
+	//删除数据
+	//for (vector<int>::iterator it = v.begin(); it != v.end();)
+	//{
+	//	v.erase(it);
+	//}
 	
+	int num = v.size();
+	
+	for (int i = 0; i < num; i++)
+	{
+		vector<int>::iterator it = v.begin();
+		v.erase(it);
+	}
 
+	if (v.empty())
+	{
+		cout << " 向量v为空 " << endl;
+	}
 
 	return 0;
 }
+
+
+
+
 
