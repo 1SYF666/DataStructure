@@ -1,9 +1,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <iostream>
-#include <stack>
-using namespace std;
+#include <ctype.h>
+
+//#include <iostream>
+//#include <stack>
+//using namespace std;
 
 /* reducto.c -- 把您的文件压缩为原来的三分之一 */
 /* reducto.c -- Compress your file to 1/3 of the original */
@@ -541,71 +543,204 @@ using namespace std;
 //	return 0;
 //}
 
-
-// vector 动态数组
-// c.clear() 移除容器中的所有数据
-// c.empty() 判断容器是否为空
-// c.erase(pos) 删除pos位置的数据
-// c.erase(beg,end) 删除[beg end]区间的数据
-// c.front() 传回第一个数据
-// c.insert(pos,elem)在pos位置插入一个elem
-// c.pop_back() 删除最后一个元素
-// c.push_back(elem) 在尾部加入一个数据
-// c.resize(num)重新设置该容器的大小
-// c.size()返回容器中实际数据的个数
-// c.begin()返回指向容器第一个元素的迭代器
-// c.end() 返回指向容器最后一个元素的迭代器
 //
+//// vector 动态数组
+//// c.clear() 移除容器中的所有数据
+//// c.empty() 判断容器是否为空
+//// c.erase(pos) 删除pos位置的数据
+//// c.erase(beg,end) 删除[beg end]区间的数据
+//// c.front() 传回第一个数据
+//// c.insert(pos,elem)在pos位置插入一个elem
+//// c.pop_back() 删除最后一个元素
+//// c.push_back(elem) 在尾部加入一个数据
+//// c.resize(num)重新设置该容器的大小
+//// c.size()返回容器中实际数据的个数
+//// c.begin()返回指向容器第一个元素的迭代器
+//// c.end() 返回指向容器最后一个元素的迭代器
+////
+//
+//#include<vector>
+//
+//int main()
+//{
+//	//声明v
+//	vector<int> v;
+//	//向向量v中添加数据
+//	for (int i = 0; i < 10; i++)
+//	{
+//		v.push_back(i);
+//	}
+//	//从向量V中读取数据后输出
+//	for (int i = 0; i < v.size(); i++)
+//	{
+//		cout << " " << v[i];
+//	}
+//	cout << endl;
+//
+//	//使用迭代器遍历数组 迭代器相当于指针
+//	cout << "使用迭代器获取数据" << endl;
+//	vector<int>::iterator iter;
+//
+//	for (iter = v.begin(); iter != v.end(); iter++)
+//	{
+//		cout << " " << *iter;
+//	}
+//	cout << endl;
+//
+//	//删除数据
+//	//for (vector<int>::iterator it = v.begin(); it != v.end();)
+//	//{
+//	//	v.erase(it);
+//	//}
+//	
+//	int num = v.size();
+//	
+//	for (int i = 0; i < num; i++)
+//	{
+//		vector<int>::iterator it = v.begin();
+//		v.erase(it);
+//	}
+//
+//	if (v.empty())
+//	{
+//		cout << " 向量v为空 " << endl;
+//	}
+//
+//	return 0;
+//}
 
-#include<vector>
+#define LEN 14
+#define SEATS 12
 
-int main()
+typedef struct
 {
-	//声明v
-	vector<int> v;
-	//向向量v中添加数据
-	for (int i = 0; i < 10; i++)
-	{
-		v.push_back(i);
-	}
-	//从向量V中读取数据后输出
-	for (int i = 0; i < v.size(); i++)
-	{
-		cout << " " << v[i];
-	}
-	cout << endl;
+    int seat_id;
+    bool status;
+    char last[LEN];
+    char first[LEN];
+} plane;
 
-	//使用迭代器遍历数组 迭代器相当于指针
-	cout << "使用迭代器获取数据" << endl;
-	vector<int>::iterator iter;
 
-	for (iter = v.begin(); iter != v.end(); iter++)
-	{
-		cout << " " << *iter;
-	}
-	cout << endl;
 
-	//删除数据
-	//for (vector<int>::iterator it = v.begin(); it != v.end();)
-	//{
-	//	v.erase(it);
-	//}
-	
-	int num = v.size();
-	
-	for (int i = 0; i < num; i++)
-	{
-		vector<int>::iterator it = v.begin();
-		v.erase(it);
-	}
 
-	if (v.empty())
-	{
-		cout << " 向量v为空 " << endl;
-	}
 
-	return 0;
+void init(plane* pl, plane* ps[])
+{
+    int i;
+
+    for (i = 0; i < SEATS; i++)
+    {
+        ps[i] = &pl[i];
+    }
+    for (i = 0; i < SEATS; i++)
+    {
+        pl[i].status = false;
+        pl[i].seat_id = i + 1;
+    }
+    return;
 }
+
+void eatline()
+{
+    while (getchar() != '\n')
+    {
+        continue;
+    }
+    return;
+}
+
+
+int get_first(void) 
+{
+    int ch;
+
+    do
+    {
+        ch = tolower(getchar());
+    } while (isspace(ch));
+    eatline();
+
+    return ch;
+}
+
+
+
+int show_airline_menu(void)
+{
+    int ch;
+
+    puts("There are some airlines for you to choose.");
+    puts("a) Airline 102.");
+    puts("b) Airline 311.");
+    puts("c) Airline 444.");
+    puts("d) Airline 519.");
+    puts("q) Quit the program.");
+    printf("Please you enter to choose: ");
+    ch = get_first();
+    while (strchr("abcdq", ch) == NULL)
+    {
+        printf("Please enter a, b, c, d or q: ");
+        ch = get_first();
+    }
+    return ch;
+}
+
+
+void airline(int choice, plane pl[], plane* ps[])
+{
+
+}
+
+int main(void)
+{
+    int ch;
+    plane airline_102[SEATS];
+    plane airline_311[SEATS];
+    plane airline_444[SEATS];
+    plane airline_519[SEATS];
+    plane* ps_102[SEATS];
+    plane* ps_311[SEATS];
+    plane* ps_444[SEATS];
+    plane* ps_519[SEATS];
+
+    init(airline_102, ps_102);
+    init(airline_311, ps_311);
+    init(airline_444, ps_444);
+    init(airline_519, ps_519);
+    while ((ch = show_airline_menu()) != 'q')
+    {
+        putchar('\n');
+        switch (ch)
+        {
+        case 'a':
+        {
+            airline(ch, airline_102, ps_102);
+            break;
+        }
+        case 'b':
+        {
+            airline(ch, airline_311, ps_311);
+            break;
+        }
+        case 'c':
+        {
+            airline(ch, airline_444, ps_444);
+            break;
+        }
+        case 'd':
+        {
+            airline(ch, airline_519, ps_519);
+            break;
+        }
+        }
+        putchar('\n');
+    }
+    puts("Bye from Colossus Airlines!");
+
+    return 0;
+}
+
+
 
 
 
