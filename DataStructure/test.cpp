@@ -620,10 +620,6 @@ typedef struct
     char first[LEN];
 } plane;
 
-
-
-
-
 void init(plane* pl, plane* ps[])
 {
     int i;
@@ -649,7 +645,6 @@ void eatline()
     return;
 }
 
-
 int get_first(void) 
 {
     int ch;
@@ -662,8 +657,6 @@ int get_first(void)
 
     return ch;
 }
-
-
 
 int show_airline_menu(void)
 {
@@ -727,7 +720,6 @@ int getmenu(int choice)
 
     return ch;
 }
-
 
 int openings(const plane pl[], int n)
 {
@@ -809,7 +801,6 @@ void sort(plane* array[], int n)
 
 }
 
-
 void list_assign(plane* ps[], int n)
 {
     int i;
@@ -839,11 +830,37 @@ void list_assign(plane* ps[], int n)
 
 }
 
+char* s_gets(char* st, int n)
+{
+    char* ret_val;
+    char* find;
+
+    ret_val = fgets(st, n, stdin);
+    if (ret_val)
+    {
+        find= strchr(st, '\n');
+        if (find)
+        {
+            *find = '\0';
+        }
+        else
+        {
+            while (getchar()!='\n')
+            {
+                continue;
+            }
+        }
+    }
+
+
+    return ret_val;
+}
 
 void assign_seat(plane pl[], int n)
 {
     int flag;
     int seat;
+    int ch;
     char list[3 * SEATS];
     
     if (openings(pl, n) == false)
@@ -882,19 +899,139 @@ void assign_seat(plane pl[], int n)
         eatline();
 
         puts("Enter first name: ");
+        s_gets(pl[seat - 1].first, LEN);
+        puts("Enter last name: ");
+        s_gets(pl[seat - 1].last, LEN);
 
+        printf("%s %s assigned to seat %d.\n", pl[seat - 1].first, pl[seat - 1].last, seat);
 
+        printf("Enter a to accept assignment,c to cancel it: ");
 
+        ch = get_first();
+        while (strchr("ac", ch) == NULL)
+        {
+            printf("Please enter a or c: ");
+            ch = get_first();
+        }
+
+        if (ch == 'a')
+        {
+            pl[seat - 1].status = true;
+            puts("Passenger assigned to seat.");
+        }
+        else if (ch == 'c')
+        {
+            puts("Passenger not assigned.");
+        }
 
     }
 
-
-
-
+    return;
 }
 
+void show_seat(const plane pl[])
+{
+    int i;
 
+    puts("Seats currently taken: ");
+    for (i = 0; i < SEATS; i++)
+    {
+        if (pl[i].status == true)
+        {
+            printf("Seats %d: %s, %s\n", pl[i].seat_id, pl[i].last, pl[i].first);
+        }
+    }
 
+    return;
+}
+
+void delete_seat(plane pl[], int n)
+{
+    int flag = 1;
+    int seat = 1;
+    int ch = 1;
+    char list[3 * SEATS];
+
+    if (openings(pl, n) == SEATS)
+    {
+        puts("All seats already are empty.Can't delete!");
+    }
+    else
+    {
+        // 显示已经分配的座位
+        // show assigned seats
+        show_seat(pl);
+        makelist(pl, list, true);
+        printf("Enter the number of the seat to be deleted: ");
+        do
+        {
+            while (scanf("%d", &seat) != 1)
+            {
+                eatline();
+                printf("Seats: %s\n", list);
+                printf("Enter a number from the lists: ");
+            }
+
+            if (seat<1 || seat>SEATS || pl[seat - 1].status == false)
+            {
+                printf("Seats: %s\n", list);
+                printf("Enter a number from this list: ");
+                flag = 1;
+            }
+            else
+            {
+                flag = 0;
+            }
+
+        } while (1== flag);
+
+        eatline();
+
+        printf("%s %s to be canceled for seat %d.\n", pl[seat - 1].first, pl[seat - 1].last, seat);
+        printf("Enter d to delete assignment,a to abort: ");
+
+        ch = get_first();
+
+        while (strchr("da", ch) == NULL)
+        {
+            printf("Please enter d or a: ");
+            ch = get_first();
+        }
+
+        if (ch == 'd')
+        {
+            pl[seat - 1].status = false;
+            puts("Passenger dropped.");
+        }
+        else if(ch=='a')
+        {
+            puts("Passenger retained.");
+        }
+    }
+
+    return;
+}
+
+void confirm_seat(plane pl[])
+{
+    int i;
+
+    puts("Seat assignment lists:");
+
+    for (i = 0; i < SEATS; i++)
+    {
+        if (pl[i].status == true)
+        {
+            printf("Seat %-2d: assigned.\n", pl[i].seat_id);
+        }
+        else
+        {
+            printf("Seat %-2d: unassigned.\n", pl[i].seat_id);
+        }
+    }
+
+    return;
+}
 
 void airline(int choice, plane pl[], plane* ps[])
 {
@@ -934,10 +1071,16 @@ void airline(int choice, plane pl[], plane* ps[])
         }
         case 'e':
         {
+            // 删除已分配的座位
+            // delete assigned seats
+            delete_seat(pl, SEATS);
             break;
         }
         case 'g':
         {
+            // 确认座位分配
+            // confirm the seat allocation
+            confirm_seat(pl);
             break;
         }
         default:
