@@ -1184,6 +1184,10 @@ int main()
 	}
 	rewind(pbooks);
 
+	// 每次运行，一开始结构体是空的，然后从文件流里读入数据到结构体
+	// every time it runs,the structure is empty at first,
+	// and then reads data from the file stream into the structure
+	//
 	while (count < MAXBKS && fread(&library[count], size, 1, pbooks) == 1)
 	{
 		if (count == 0)
@@ -1203,6 +1207,9 @@ int main()
 		fputs("The book.dat file is full.", stderr);
 		exit(2);
 	}
+
+	//下面继续输入内容到结构体里
+	//next,continue to enter the content into the structure
 
 	puts("Please add new book title.");
 	puts("Press [enter] at the start of a line to stop.");
@@ -1233,6 +1240,8 @@ int main()
 				library[index].author, 
 				library[index].value);
 		}
+		// 把新输入到结构体里的内容 写到文件流中
+		// write the newly entered content into the structure into the file stream
 
 		fwrite(&library[filecount], size, count - filecount, pbooks);
 	}
