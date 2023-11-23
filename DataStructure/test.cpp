@@ -1147,115 +1147,115 @@
 /* booksave.c -- 把结构内存保存到文件中 */
 /* booksave.c -- save the structural memory to the file */
 
-#define MAXTITL 40
-#define MAXAUTL 40
-#define MAXBKS 10
-
-struct book
-{
-	char title[MAXTITL];
-	char author[MAXAUTL];
-	float value;
-};
-
-void eatline()
-{
-	while (getchar() != '\n')
-	{
-		continue;
-	}
-	return;
-}
-
-
-int main()
-{
-	struct book library[MAXBKS];
-	int count = 0;
-	int index, filecount;
-	FILE* pbooks;
-
-	int size = sizeof(struct book);
-
-	if ((pbooks = fopen("D:\\Post_graduate\\code\\self_code\\book.dat", "a+b")) == NULL)
-	{
-		fputs("Can't open book.dat file\n", stderr);
-		exit(1);
-	}
-	rewind(pbooks);
-
-	// 每次运行，一开始结构体是空的，然后从文件流里读入数据到结构体
-	// every time it runs,the structure is empty at first,
-	// and then reads data from the file stream into the structure
-	//
-	while (count < MAXBKS && fread(&library[count], size, 1, pbooks) == 1)
-	{
-		if (count == 0)
-		{
-			puts("Current contents of book.dat: ");
-		}
-		printf("%s by %s: $%.2f\n",
-			library[count].title, library[count].author, library[count].value);
-
-		count++;
-	}
-
-	filecount = count;
-
-	if (count == MAXBKS)
-	{
-		fputs("The book.dat file is full.", stderr);
-		exit(2);
-	}
-
-	//下面继续输入内容到结构体里
-	//next,continue to enter the content into the structure
-
-	puts("Please add new book title.");
-	puts("Press [enter] at the start of a line to stop.");
-	while (count < MAXBKS
-		&& gets_s(library[count].title) != NULL
-		&& library[count].title[0] != '\0')
-	{
-		puts("Now enter the author.");
-		gets_s(library[count].author);
-		puts("Now enter the value.");
-		scanf("%f", &library[count++].value);
-		eatline();
-
-		if (count < MAXBKS)
-		{
-			puts("Enter the next title.");
-		}
-	}
-
-	if (count > 0)
-	{
-		puts("Here is the list of your books: ");
-
-		for (index = 0; index < count; index++)
-		{
-			printf("%s by %s: $%.2f\n", 
-				library[index].title, 
-				library[index].author, 
-				library[index].value);
-		}
-		// 把新输入到结构体里的内容 写到文件流中
-		// write the newly entered content into the structure into the file stream
-
-		fwrite(&library[filecount], size, count - filecount, pbooks);
-	}
-	else
-	{
-		puts("No books? Too bad.\n");
-	}
-
-	puts("Bye.\n");
-
-	fclose(pbooks);
-
-	return 0;
-}
+//#define MAXTITL 40
+//#define MAXAUTL 40
+//#define MAXBKS 10
+//
+//struct book
+//{
+//	char title[MAXTITL];
+//	char author[MAXAUTL];
+//	float value;
+//};
+//
+//void eatline()
+//{
+//	while (getchar() != '\n')
+//	{
+//		continue;
+//	}
+//	return;
+//}
+//
+//
+//int main()
+//{
+//	struct book library[MAXBKS];
+//	int count = 0;
+//	int index, filecount;
+//	FILE* pbooks;
+//
+//	int size = sizeof(struct book);
+//
+//	if ((pbooks = fopen("D:\\Post_graduate\\code\\self_code\\book.dat", "a+b")) == NULL)
+//	{
+//		fputs("Can't open book.dat file\n", stderr);
+//		exit(1);
+//	}
+//	rewind(pbooks);
+//
+//	// 每次运行，一开始结构体是空的，然后从文件流里读入数据到结构体
+//	// every time it runs,the structure is empty at first,
+//	// and then reads data from the file stream into the structure
+//	//
+//	while (count < MAXBKS && fread(&library[count], size, 1, pbooks) == 1)
+//	{
+//		if (count == 0)
+//		{
+//			puts("Current contents of book.dat: ");
+//		}
+//		printf("%s by %s: $%.2f\n",
+//			library[count].title, library[count].author, library[count].value);
+//
+//		count++;
+//	}
+//
+//	filecount = count;
+//
+//	if (count == MAXBKS)
+//	{
+//		fputs("The book.dat file is full.", stderr);
+//		exit(2);
+//	}
+//
+//	//下面继续输入内容到结构体里
+//	//next,continue to enter the content into the structure
+//
+//	puts("Please add new book title.");
+//	puts("Press [enter] at the start of a line to stop.");
+//	while (count < MAXBKS
+//		&& gets_s(library[count].title) != NULL
+//		&& library[count].title[0] != '\0')
+//	{
+//		puts("Now enter the author.");
+//		gets_s(library[count].author);
+//		puts("Now enter the value.");
+//		scanf("%f", &library[count++].value);
+//		eatline();
+//
+//		if (count < MAXBKS)
+//		{
+//			puts("Enter the next title.");
+//		}
+//	}
+//
+//	if (count > 0)
+//	{
+//		puts("Here is the list of your books: ");
+//
+//		for (index = 0; index < count; index++)
+//		{
+//			printf("%s by %s: $%.2f\n", 
+//				library[index].title, 
+//				library[index].author, 
+//				library[index].value);
+//		}
+//		// 把新输入到结构体里的内容 写到文件流中
+//		// write the newly entered content into the structure into the file stream
+//
+//		fwrite(&library[filecount], size, count - filecount, pbooks);
+//	}
+//	else
+//	{
+//		puts("No books? Too bad.\n");
+//	}
+//
+//	puts("Bye.\n");
+//
+//	fclose(pbooks);
+//
+//	return 0;
+//}
 
 
 
