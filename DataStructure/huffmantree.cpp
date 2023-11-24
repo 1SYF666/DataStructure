@@ -40,6 +40,8 @@ void Select(HuffmanTree HT, int end, int* s1, int* s2)
         i++;
     }
     //对找到的两个结点比较大小，min2为大的，min1为小的
+    // for the two nodes found,min2 is large and min1 is small
+
     if (HT[i].weight < min1) {
         min2 = min1;
         *s2 = *s1;
@@ -51,13 +53,19 @@ void Select(HuffmanTree HT, int end, int* s1, int* s2)
         *s2 = i;
     }
     //两个结点和后续的所有未构建成树的结点做比较
+    // compare the two nodes with all subsequent nodes
+    // that have not been built into trees
     for (int j = i + 1; j <= end; j++)
     {
         //如果有父结点，直接跳过，进行下一个
+        // if there is a parent node,skip it directly 
+        // and proceed to the next one
         if (HT[j].parent != 0) {
             continue;
         }
         //如果比最小的还小，将min2=min1，min1赋值新的结点的下标
+        // if it is smaller than the smallest,assign min2=min1,
+        // min1 to the subscript of the new node
         if (HT[j].weight < min1) {
             min2 = min1;
             min1 = HT[j].weight;
@@ -65,6 +73,8 @@ void Select(HuffmanTree HT, int end, int* s1, int* s2)
             *s1 = j;
         }
         //如果介于两者之间，min2赋值为新的结点的位置下标
+        // if it is between the two, assign min2 as 
+        // the position subscript of the new node 
         else if (HT[j].weight >= min1 && HT[j].weight < min2) {
             min2 = HT[j].weight;
             *s2 = j;
@@ -74,13 +84,19 @@ void Select(HuffmanTree HT, int end, int* s1, int* s2)
 
 
 //HT为地址传递的存储哈夫曼树的数组，w为存储结点权重值的数组，n为结点个数
+// HT is the array of the Huffman tree passed by the address,
+// w is the array of the weight value of the node,
+// and n is the number of nodes  
+//
 void CreateHuffmanTree(HuffmanTree* HT, int* w, int n)
 {
-    if (n <= 1) return; // 如果只有一个编码就相当于0
-    int m = 2 * n - 1; // 哈夫曼树总节点数，n就是叶子结点
-    *HT = (HuffmanTree)malloc((m + 1) * sizeof(HTNode)); // 0号位置不用
+    if (n <= 1) return; // 如果只有一个编码就相当于0   if there is only one code,
+                        // it is equivalent to 0
+    int m = 2 * n - 1;  // 哈夫曼树总节点数，n就是叶子结点
+                        // Huffman tree sums up the point tree,n is the leaf node
+    *HT = (HuffmanTree)malloc((m + 1) * sizeof(HTNode)); // 0号位置不用  zero location is not used
     HuffmanTree p = *HT;
-    // 初始化哈夫曼树中的所有结点
+    // 初始化哈夫曼树中的所有结点  initialise all nodes of huffman tree
     for (int i = 1; i <= n; i++)
     {
         (p + i)->weight = *(w + i - 1);
@@ -88,7 +104,9 @@ void CreateHuffmanTree(HuffmanTree* HT, int* w, int n)
         (p + i)->left = 0;
         (p + i)->right = 0;
     }
-    //从树组的下标 n+1 开始初始化哈夫曼树中除叶子结点外的结点
+    // 从树组的下标 n+1 开始初始化哈夫曼树中除叶子结点外的结点
+    // initilise the nodes in the huffman tree except for
+    // lead nodes from the subscript n+1 of the array
     for (int i = n + 1; i <= m; i++)
     {
         (p + i)->weight = 0;
@@ -96,7 +114,8 @@ void CreateHuffmanTree(HuffmanTree* HT, int* w, int n)
         (p + i)->left = 0;
         (p + i)->right = 0;
     }
-    //构建哈夫曼树
+    //构建哈夫曼树 creat the huffman trees
+
     for (int i = n + 1; i <= m; i++)
     {
         int s1, s2;
@@ -118,7 +137,7 @@ void CreateHuffmanTree(HuffmanTree* HT, int* w, int n)
 //   例如，求图 3 中字符 c 的哈夫曼编码，就从根结点开始，依次为：1 1 0。
 
 
-typedef char** HuffmanCode; 
+typedef char* HuffmanCode; 
 
 //HT为哈夫曼树，HC为存储结点哈夫曼编码的二维动态数组，n为结点的个数
 void HuffmanCoding1(HuffmanTree HT, HuffmanCode* HC, int n) {
@@ -146,14 +165,12 @@ void HuffmanCoding1(HuffmanTree HT, HuffmanCode* HC, int n) {
             j = HT[j].parent;
         }
         //跳出循环后，cd数组中从下标 start 开始，存放的就是该结点的哈夫曼编码
-        (*HC)[i] = (char*)malloc((n - start) * sizeof(char));
-        strcpy((*HC)[i], &cd[start]);
+        HC[i] = (char*)malloc((n - start) * sizeof(char));
+        strcpy(HC[i], &cd[start]);
     }
     //使用malloc申请的cd动态数组需要手动释放
     free(cd);
 }
-
-
 
 
 //HT为哈夫曼树，HC为存储结点哈夫曼编码的二维动态数组，n为结点的个数
@@ -170,18 +187,21 @@ void HuffmanCoding2(HuffmanTree HT, HuffmanCode* HC, int n) {
     //一开始 p 初始化为 m，也就是从树根开始。一直到p为0
     while (p) {
         //如果当前结点一次没有访问，进入这个if语句
-        if (HT[p].weight == 0) {
+        if (HT[p].weight == 0) 
+        {
             HT[p].weight = 1;//重置访问次数为1
             //如果有左孩子，则访问左孩子，并且存储走过的标记为0
-            if (HT[p].left != 0) {
+            if (HT[p].left != 0) 
+            {
                 p = HT[p].left;
                 cd[cdlen++] = '0';
             }
             //当前结点没有左孩子，也没有右孩子，说明为叶子结点，直接记录哈夫曼编码
-            else if (HT[p].right == 0) {
-                (*HC)[p] = (char*)malloc((cdlen + 1) * sizeof(char));
+            else if (HT[p].right == 0)
+            {
+                HC[p] = (char*)malloc((cdlen + 1) * sizeof(char));
                 cd[cdlen] = '\0';
-                strcpy((*HC)[p], cd);
+                strcpy(HC[p], cd);
             }
         }
         //如果weight为1，说明访问过一次，即是从其左孩子返回的
