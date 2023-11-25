@@ -139,23 +139,34 @@ void CreateHuffmanTree(HuffmanTree* HT, int* w, int n)
 
 typedef char* HuffmanCode; 
 
-//HT为哈夫曼树，HC为存储结点哈夫曼编码的二维动态数组，n为结点的个数
+// HT为哈夫曼树，HC为存储结点哈夫曼编码的二维动态数组，n为结点的个数
+// HT is the Huffman tree,HC is the two-dimensional dynamic array
+// encoded by the storage node Huffman,and n is the number of nodes
+//
 void HuffmanCoding1(HuffmanTree HT, HuffmanCode* HC, int n) {
     *HC = (HuffmanCode)malloc((n + 1) * sizeof(char*));
-    char* cd = (char*)malloc(n * sizeof(char)); //存放结点哈夫曼编码的字符串数组
-    cd[n - 1] = '\0';//字符串结束符
+    char* cd = (char*)malloc(n * sizeof(char)); //存放结点哈夫曼编码的字符串数组 
+                                                //store the array of strings encoded by Huffman
+    cd[n - 1] = '\0';//字符串结束符   string terminator
 
     for (int i = 1; i <= n; i++)\
     {
         //从叶子结点出发，得到的哈夫曼编码是逆序的，需要在字符串数组中逆序存放
+        // starting from the leaf node,the Huffman code obtained is reverse order
+        // and needs to be stored in reverse order in the string array
+        //
         int start = n - 1;
-        //当前结点在数组中的位置
+        //当前结点在数组中的位置   the current node is located in the array
         int c = i;
-        //当前结点的父结点在数组中的位置
+        //当前结点的父结点在数组中的位置 the position of the parent node of current node in the array 
         int j = HT[i].parent;
-        // 一直寻找到根结点
-        while (j != 0) {
+        // 一直寻找到根结点 search all the away to the root node
+        while (j != 0)
+        {
             // 如果该结点是父结点的左孩子则对应路径编码为0，否则为右孩子编码为1
+            // if the node is the leaf child of the parent node,the corresponding
+            // path code is 0;otherwise the right child is encoded as 1 
+            //
             if (HT[j].left == c)
                 cd[--start] = '0';
             else
