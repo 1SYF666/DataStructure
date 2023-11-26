@@ -149,7 +149,7 @@ void HuffmanCoding1(HuffmanTree HT, HuffmanCode* HC, int n) {
                                                 //store the array of strings encoded by Huffman
     cd[n - 1] = '\0';//字符串结束符   string terminator
 
-    for (int i = 1; i <= n; i++)\
+    for (int i = 1; i <= n; i++)
     {
         //从叶子结点出发，得到的哈夫曼编码是逆序的，需要在字符串数组中逆序存放
         // starting from the leaf node,the Huffman code obtained is reverse order
@@ -172,14 +172,23 @@ void HuffmanCoding1(HuffmanTree HT, HuffmanCode* HC, int n) {
             else
                 cd[--start] = '1';
             //以父结点为孩子结点，继续朝树根的方向遍历
+            // take the parent node as the child's node and 
+            // continue to traverse in the direction of the tree root
+        
             c = j;
             j = HT[j].parent;
         }
-        //跳出循环后，cd数组中从下标 start 开始，存放的就是该结点的哈夫曼编码
+        // 跳出循环后，cd数组中从下标 start 开始，存放的就是该结点的哈夫曼编码
+        // jumpintg out of the loop,the cd array starts from the subscript start
+        // and stores the Huffman code of the node
+        //
+
         HC[i] = (char*)malloc((n - start) * sizeof(char));
         strcpy(HC[i], &cd[start]);
     }
     //使用malloc申请的cd动态数组需要手动释放
+    // the cd dynamic array applied with malloc needs tobe released manually
+
     free(cd);
 }
 
@@ -231,20 +240,4 @@ void HuffmanCoding2(HuffmanTree HT, HuffmanCode* HC, int n) {
             --cdlen;
         }
     }
-}
-
-
-
-int main()
-{
-    HuffmanTree HT;
-    HuffmanCode HC;
-    int i, n;
-    printf("哈夫曼树节点个数：");
-    scanf("%d", &n);
-    //CreateHuffmanTree(&HT, n);/*建立哈夫曼树*/
-    //HuffmanCoding1(HT, &HC, n);/*哈夫曼树编码*/
-    for (i = 1; i <= n; i++)/*输出字符、权值及编码*/
-        printf("编码是：%s\n", HC[i]);
-    return 0;
 }

@@ -1258,6 +1258,28 @@
 //}
 
 
+// 开发一个包含你需要的预处理器定义的头文件
+// develop a header file that you need to
+// define as a preprocessor
+//
+
+#define HMEAN(X,Y) ( 2.0*(X)*(Y)/((X)+(Y)) )
+int main()
+{
+	double x, y, ans;
+
+	printf("Enter a pair of numbers(q to quit): ");
+	while (scanf("%lf %lf",&x,&y)==2)
+	{
+		ans = HMEAN(x, y);
+		printf("%g= harmonic mean of %g %g.\n", ans, x, y);
+		printf("Enter a pair of numbers (q to quit): ");
+	}
+	puts("Done.");
+
+	return 0;
+}
+
 
 
 
