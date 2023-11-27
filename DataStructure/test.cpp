@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
+#include <math.h>
 
 //#include <iostream>
 //#include <stack>
@@ -1263,24 +1264,68 @@
 // define as a preprocessor
 //
 
-#define HMEAN(X,Y) ( 2.0*(X)*(Y)/((X)+(Y)) )
+//#define HMEAN(X,Y) ( 2.0*(X)*(Y)/((X)+(Y)) )
+//int main()
+//{
+//	double x, y, ans;
+//
+//	printf("Enter a pair of numbers(q to quit): ");
+//	while (scanf("%lf %lf",&x,&y)==2)
+//	{
+//		ans = HMEAN(x, y);
+//		printf("%g= harmonic mean of %g %g.\n", ans, x, y);
+//		printf("Enter a pair of numbers (q to quit): ");
+//	}
+//	puts("Done.");
+//
+//	return 0;
+//}
+
+#define PI 3.1415926
+
+typedef struct
+{
+	double length;
+	double angle;
+}polar;
+
+typedef struct
+{
+	double x;
+	double y;
+}rect;
+
+rect polar_to_rect(const polar* temp);
+
 int main()
 {
-	double x, y, ans;
+	polar input;
+	rect answer;
 
-	printf("Enter a pair of numbers(q to quit): ");
-	while (scanf("%lf %lf",&x,&y)==2)
+	printf("Enter magnitude and angle in degrees(q to quit): ");
+	while (scanf("%lf %lf",&input.length,&input.angle)==2)
 	{
-		ans = HMEAN(x, y);
-		printf("%g= harmonic mean of %g %g.\n", ans, x, y);
-		printf("Enter a pair of numbers (q to quit): ");
+		answer = polar_to_rect(&input);
+		printf("polar coord: %g %g\n", input.length, input.angle);
+		printf("rectangle coord: %g %g\n", answer.x,answer.y);
+		printf("You can enter again (q to quit): ");
+
 	}
 	puts("Done.");
-
 	return 0;
 }
 
+rect polar_to_rect(const polar* temp)
+{
+	rect res;
+	static const double rad = PI / 180.0;
+	double ans = rad * temp->angle;
 
+	res.x = temp->length * cos(ans);
+	res.y = temp->length * sin(ans);
+
+	return res;
+}
 
 
 
