@@ -6,9 +6,12 @@ using namespace std;
 // 邻接矩阵的存储表示
 #define MaxInt 32767
 #define MVNUM 100
+#define OK 1
+#define ERROR 0
+
 typedef char VerTexType;
 typedef int ArcType;
-typedef void Status;
+typedef int Status;
 
 typedef struct
 {
@@ -17,8 +20,21 @@ typedef struct
 	int vexnum, arcnum;
 }AMGraph;
 
+int LocateVex(AMGraph G, VerTexType u)
+{
+	int i = 0;
+	for (i = 0; i < G.vexnum; i++)
+	{
+		if (u == G.vexs[i])
+			return i;
+	}
+	return -1;
+}
+
 Status CreatUDN(AMGraph& G)
 {
+	char V1, V2;  // VerTex
+	int w;		  // weight
 
 	cin >> G.vexnum >> G.arcnum;
 
@@ -40,6 +56,7 @@ Status CreatUDN(AMGraph& G)
 	// creat the adjacent matrix
 	for (int k = 0; k < G.arcnum; k++)
 	{
+		int i = 0, j = 0;
 		cin >> V1 >> V2 >> w;
 		i = LocateVex(G, V1);
 		j = LocateVex(G, V2);
@@ -48,7 +65,7 @@ Status CreatUDN(AMGraph& G)
 		G.arcs[j][i] = G.arcs[i][j];
 	}
 
-	return ;
+	return OK;
 }
 
 
