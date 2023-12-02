@@ -3,6 +3,7 @@
 #include <string.h>
 #include <ctype.h>
 #include <math.h>
+#include <time.h>
 
 //#include <iostream>
 //#include <stack>
@@ -1281,50 +1282,136 @@
 //	return 0;
 //}
 
-#define PI 3.1415926
+//#define PI 3.1415926
+//
+//typedef struct
+//{
+//	double length;
+//	double angle;
+//}polar;
+//
+//typedef struct
+//{
+//	double x;
+//	double y;
+//}rect;
+//
+//rect polar_to_rect(const polar* temp);
+//
+//int main()
+//{
+//	polar input;
+//	rect answer;
+//
+//	printf("Enter magnitude and angle in degrees(q to quit): ");
+//	while (scanf("%lf %lf",&input.length,&input.angle)==2)
+//	{
+//		answer = polar_to_rect(&input);
+//		printf("polar coord: %g %g\n", input.length, input.angle);
+//		printf("rectangle coord: %g %g\n", answer.x,answer.y);
+//		printf("You can enter again (q to quit): ");
+//
+//	}
+//	puts("Done.");
+//	return 0;
+//}
+//
+//rect polar_to_rect(const polar* temp)
+//{
+//	rect res;
+//	static const double rad = PI / 180.0;
+//	double ans = rad * temp->angle;
+//
+//	res.x = temp->length * cos(ans);
+//	res.y = temp->length * sin(ans);
+//
+//	return res;
+//}
 
-typedef struct
+
+
+#define TSIZE 45
+#define FMAX 5
+
+struct film
 {
-	double length;
-	double angle;
-}polar;
-
-typedef struct
-{
-	double x;
-	double y;
-}rect;
-
-rect polar_to_rect(const polar* temp);
+	char title[TSIZE];
+	int rating;
+	struct film* next;
+};
 
 int main()
 {
-	polar input;
-	rect answer;
+	time_t start;
+	time_t end;
+	struct film* head = NULL;
+	struct film* prev=NULL;
+	struct film* current=NULL;
 
-	printf("Enter magnitude and angle in degrees(q to quit): ");
-	while (scanf("%lf %lf",&input.length,&input.angle)==2)
+	char input[TSIZE];
+
+	puts("Enter first movie title: ");
+	while (gets_s(input) != NULL
+		&& input[0] != '\0')
 	{
-		answer = polar_to_rect(&input);
-		printf("polar coord: %g %g\n", input.length, input.angle);
-		printf("rectangle coord: %g %g\n", answer.x,answer.y);
-		printf("You can enter again (q to quit): ");
+		current = (struct film*)malloc(sizeof(struct film));
+		if (head == NULL)
+		{
+			head = current; //first struct node
+		}
+		else
+		{
+			prev->next = current; //second struct node
+		}
+		current->next = NULL;
 
+		strcpy(current->title, input);
+		puts("Enter your rating <0-10>: ");
+		scanf("%d", &current->rating);
+		while (getchar() != '\n')
+		{
+			continue;
+		}
+
+		puts("Enter next movie title (empty line to stop): ");
+
+		prev = current;
 	}
-	puts("Done.");
+
+	start = time(NULL);
+	if (head == NULL)
+	{
+		printf("No data entered. ");
+	}
+	else
+	{
+		printf("Here is the movie list: \n");
+	}
+
+	current = head;
+
+	while (current != NULL)
+	{
+		printf("Movie:%s Rating: %d\n", current->title,
+			current->rating);
+		current = current->next;
+	}
+
+	// free up memory
+	current = head;
+	while (current != NULL)
+	{
+		free(current);
+		current = current->next;
+	}
+
+	end = time(NULL);
+
+	printf("end-start=%.6fs\n", (float)(end - start));
+
+	printf("Bye!\n");
+
 	return 0;
-}
-
-rect polar_to_rect(const polar* temp)
-{
-	rect res;
-	static const double rad = PI / 180.0;
-	double ans = rad * temp->angle;
-
-	res.x = temp->length * cos(ans);
-	res.y = temp->length * sin(ans);
-
-	return res;
 }
 
 
