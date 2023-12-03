@@ -4,6 +4,7 @@
 #include <ctype.h>
 #include <math.h>
 #include <time.h>
+#include "list.h"
 
 //#include <iostream>
 //#include <stack>
@@ -1327,96 +1328,166 @@
 //
 //	return res;
 //}
+// 
+//#define TSIZE 45
+//#define FMAX 5
+//
+//struct film
+//{
+//	char title[TSIZE];
+//	int rating;
+//	struct film* next;
+//};
+//
+//int main()
+//{
+//	time_t start;
+//	time_t end;
+//	struct film* head = NULL;
+//	struct film* prev=NULL;
+//	struct film* current=NULL;
+//
+//	char input[TSIZE];
+//
+//	puts("Enter first movie title: ");
+//	while (gets_s(input) != NULL
+//		&& input[0] != '\0')
+//	{
+//		current = (struct film*)malloc(sizeof(struct film) * 1);
+//		if (head == NULL)
+//		{
+//			head = current; //first struct node
+//		}
+//		else
+//		{
+//			prev->next = current; //second struct node
+//		}
+//
+//		current->next = NULL;
+//
+//		strcpy(current->title, input);
+//		puts("Enter your rating <0-10>: ");
+//		scanf("%d", &current->rating);
+//		while (getchar() != '\n')
+//		{
+//			continue;
+//		}
+//
+//		puts("Enter next movie title (empty line to stop): ");
+//
+//		prev = current;
+//	}
+//
+//	start = time(NULL);
+//	if (head == NULL)
+//	{
+//		printf("No data entered. ");
+//	}
+//	else
+//	{
+//		printf("Here is the movie list: \n");
+//	}
+//
+//	current = head;
+//
+//	while (current != NULL)
+//	{
+//		printf("Movie:%s Rating: %d\n", current->title,
+//			current->rating);
+//		current = current->next;
+//	}
+//
+//	// free up memory
+//	current = head;
+//	struct film* temp;
+//	while (current != NULL)
+//	{
+//		//free(current);
+//		//current = current->next; //free后 使得 current 成为野指针
+//
+//		temp = current->next;
+//		free(current);        
+//		current = temp;
+//	}
+//
+//	end = time(NULL);
+//
+//	printf("end-start=%.6fs\n", (float)(end - start));
+//
+//	printf("Bye!\n");
+//
+//	return 0;
+//}
 
+void showmovies(Item item);
 
-
-#define TSIZE 45
-#define FMAX 5
-
-struct film
+int main(void)
 {
-	char title[TSIZE];
-	int rating;
-	struct film* next;
-};
+	List movies;
+	Item temp;
 
-int main()
-{
-	time_t start;
-	time_t end;
-	struct film* head = NULL;
-	struct film* prev=NULL;
-	struct film* current=NULL;
+	//initialize
+	InitializeList(&movies);
 
-	char input[TSIZE];
-
-	puts("Enter first movie title: ");
-	while (gets_s(input) != NULL
-		&& input[0] != '\0')
+	if (ListIsFull(&movies))
 	{
-		current = (struct film*)malloc(sizeof(struct film));
-		if (head == NULL)
-		{
-			head = current; //first struct node
-		}
-		else
-		{
-			prev->next = current; //second struct node
-		}
-		current->next = NULL;
+		fprintf(stderr, "No memory avaliable! Bye!\n");
+		exit(1);
+	}
 
-		strcpy(current->title, input);
+	//clocate and save
+	puts("Enter first movie title: ");
+	while (gets_s(temp.title) != NULL
+		&& temp.title[0] != '\0')
+	{
 		puts("Enter your rating <0-10>: ");
-		scanf("%d", &current->rating);
+		scanf("%d", &temp.rating);
 		while (getchar() != '\n')
 		{
 			continue;
 		}
 
+		if (AddItem(temp, &movies) == false)
+		{
+			fprintf(stderr, "Problem allocating memory\n");
+			break;
+		}
+
+		if (ListIsFull(&movies))
+		{
+			puts("The list is now full. ");
+			break;
+		}
+
 		puts("Enter next movie title (empty line to stop): ");
 
-		prev = current;
 	}
 
-	start = time(NULL);
-	if (head == NULL)
+	if (ListIsEmpty(&movies))
 	{
 		printf("No data entered. ");
 	}
 	else
 	{
 		printf("Here is the movie list: \n");
+		Traverse(&movies, showmovies);
 	}
 
-	current = head;
+	printf("You entered %d movies.\n", ListItemCount(&movies));
 
-	while (current != NULL)
-	{
-		printf("Movie:%s Rating: %d\n", current->title,
-			current->rating);
-		current = current->next;
-	}
-
-	// free up memory
-	current = head;
-	while (current != NULL)
-	{
-		free(current);
-		current = current->next;
-	}
-
-	end = time(NULL);
-
-	printf("end-start=%.6fs\n", (float)(end - start));
+	//free
+	EmptyTheList(&movies);
 
 	printf("Bye!\n");
 
 	return 0;
+
 }
 
-
-
-
+void showmovies(Item item)
+{
+	printf("Movie:%s Rating: %d\n", item.title, item.rating);
+}
 
 
 
