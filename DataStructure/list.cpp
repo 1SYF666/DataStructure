@@ -2,17 +2,11 @@
 
 static void CopyToNode(Item item, Node* pnode);
 
-/* 操作： 初始化一个列表 */
-/* 操作前：plist 指向一个列表 */
-/* 操作后：该列表被初始化为空列表 */
 void InitializeList(List* plist)
 {
 	*plist = NULL;
 }
 
-/* 操作： 确定列表是否为空列表 */
-/* 操作前：plist 指向一个已经初始化的列表 */
-/* 操作后：如果该列表为空，则返回true;否则返回false */
 bool ListIsEmpty(const List* plist)
 {
 	if (*plist == NULL)
@@ -24,4 +18,91 @@ bool ListIsEmpty(const List* plist)
 		return false;
 	}
 
+}
+
+bool ListIsFull(const List* plist)
+{
+	Node* pt;
+	bool full;
+
+	pt = (Node*)malloc(sizeof(Node));
+	if (pt == NULL)
+		full = true;
+	else
+	{
+		full = false;
+	}
+	free(pt);
+	return full;
+}
+
+unsigned int ListItemCount(const List* plist)
+{
+	unsigned int count = 0;
+	Node* pnode = *plist;
+
+	while (pnode!=NULL)
+	{
+		++count;
+		pnode = pnode->next;
+	}
+	return count;
+}
+
+bool AddItem(Item item, List* plist)
+{
+	Node* pnew;
+	Node* scan = *plist;
+
+	pnew = (Node*)malloc(sizeof(Node));
+
+	if (pnew == NULL)
+	{
+		return false;
+	}
+
+	CopyToNode(item, pnew);
+	pnew->next = NULL;
+	if (scan == NULL)
+	{
+		*plist = pnew;
+	}
+	else
+	{
+		while (scan->next!=NULL)
+		{
+			scan = scan->next;
+		}
+		scan->next = pnew;
+	}
+
+	return true;
+}
+
+void Traverse(const List* plist, void (*pfun)(Item item))
+{
+	Node* pnode = *plist;
+
+	while (pnode!=NULL)
+	{
+		(*pfun)(pnode->item);
+		pnode = pnode->next;
+	}
+}
+
+void EmptyTheList(List* plist)
+{
+	Node* psave;
+	while (*plist!=NULL)
+	{
+		psave = (*plist)->next;
+		free(*plist);
+		*plist = psave;
+	}
+	return;
+}
+
+static void CopyToNode(Item item, Node* pnode)
+{
+	pnode->item = item;
 }

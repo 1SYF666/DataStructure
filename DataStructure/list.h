@@ -1,8 +1,7 @@
 #pragma once
-#define LIST_H
-/* list.h -- 简单列表类型的头文件 */
-#ifdef LIST_H
 
+/* list.h -- 简单列表类型的头文件 */
+#ifndef LIST_H
 #define LIST_H
 
 
@@ -50,7 +49,7 @@ unsigned int ListItemCount(const List* plist);
 /*		  plist 指向一个已经初始化的列表* /
 /* 操作后：如果可能的话，在列表尾部添加一个新项目， */
 /*        函数返回true,否则函数返回false */
-bool AddItem(Item item,const List* plist);
+bool AddItem(Item item, List* plist);
 
 /* 操作： 把一个函数作用于列表中的每个项目 */
 /* 操作前：plist 指向一个已经初始化的列表*/
