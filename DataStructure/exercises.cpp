@@ -22,20 +22,20 @@ int main()
 	//}
 	//assert(element_count == 0);
 
-	ofstream outfile("out_file");
-	ifstream infile("in_file");
+	//ofstream outfile("out_file");
+	//ifstream infile("in_file");
 
-	if (!infile)
-	{
-		cerr << "error:unable to open input file!\n ";
-		return -1;
-	}
+	//if (!infile)
+	//{
+	//	cerr << "error:unable to open input file!\n ";
+	//	return -1;
+	//}
 
-	if (!outfile)
-	{
-		cerr << "error:unable to open output file!\n ";
-		return -2;
-	}
+	//if (!outfile)
+	//{
+	//	cerr << "error:unable to open output file!\n ";
+	//	return -2;
+	//}
 
 	/*
 		从一个名为 in_file 的文本文件中读取单词 
@@ -43,13 +43,33 @@ int main()
 		并且每个词之间用空格分开
 	*/
 
-	string word;
-	while (infile >> word)
-	{
-		outfile << word << ' ';
-	}
+	//string word;
+	//while (infile >> word)
+	//{
+	//	outfile << word << ' ';
+	//}
+
+	int* pint = new int(1024);
+	
+	int* pia = new int[4];
+
+	delete pint;    // 删除单个对象
+
+	delete []pia;  // 删除一个对象数组
+
+
+
+
+
+
+
+
+
+
+
 
 	return 0;
+
 }
 
 
