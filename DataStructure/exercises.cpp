@@ -11,62 +11,18 @@ using namespace std;
 // __FILE__ 用以指示本行语句所在源文件的文件名
 // __LINE__ 用以指示本行语句所在源文件中的位置信息
 
+extern int pow(int, int);
+
 int main()
 {
-	//int element_count = 0;
-	//if (element_count == 0)
-	//{
-	//	cerr << "time: " << __TIME__ << endl
-	//	     << "date: " << __DATE__ << endl;
-	//
-	//}
-	//assert(element_count == 0);
-
-	//ofstream outfile("out_file");
-	//ifstream infile("in_file");
-
-	//if (!infile)
-	//{
-	//	cerr << "error:unable to open input file!\n ";
-	//	return -1;
-	//}
-
-	//if (!outfile)
-	//{
-	//	cerr << "error:unable to open output file!\n ";
-	//	return -2;
-	//}
-
-	/*
-		从一个名为 in_file 的文本文件中读取单词 
-		然后把每个词写到一个名为 out_file 的输出文件中 
-		并且每个词之间用空格分开
-	*/
-
-	//string word;
-	//while (infile >> word)
-	//{
-	//	outfile << word << ' ';
-	//}
-
-	int* pint = new int(1024);
 	
-	int* pia = new int[4];
-
-	delete pint;    // 删除单个对象
-
-	delete []pia;  // 删除一个对象数组
-
-
-
-
-
-
-
-
-
-
-
+	int val;
+	int exp;
+	cout << "The Powers of 2\n";
+	for (int cnt = 0; cnt <= exp; ++cnt)
+	{
+		cout << cnt << ": " << pow(val, cnt) << endl;
+	}
 
 	return 0;
 
