@@ -11,21 +11,63 @@ using namespace std;
 // __FILE__ 用以指示本行语句所在源文件的文件名
 // __LINE__ 用以指示本行语句所在源文件中的位置信息
 
-extern int pow(int, int);
 
 int main()
 {
-	
-	int val;
-	int exp;
-	cout << "The Powers of 2\n";
-	for (int cnt = 0; cnt <= exp; ++cnt)
+	int aCnt = 0, eCnt = 0, iCnt = 0, oCnt = 0, uCnt = 0,
+		theCnt = 0, itCnt = 0, wdCnt = 0, notVowel = 0;
+
+	string buf, the("the"), it("it");
+
+	while (cin>>buf)
 	{
-		cout << cnt << ": " << pow(val, cnt) << endl;
+		++wdCnt;
+
+		cout << buf << ' ';
+
+		if (wdCnt % 12 == 0)
+		{
+			cout << endl;
+		}
+		if (buf == the || buf == "The")
+		{
+			++theCnt;
+		}
+		else
+		{
+			if (buf == it || buf == "It")
+			{
+				++itCnt;
+			}
+		}
+
+		for (int ix = 0; ix < buf.size(); ++ix)
+		{
+			switch (buf[ix])
+			{
+			case 'a':case 'A':++aCnt; break;
+			case 'e':case 'E':++eCnt; break;
+			case 'i':case 'I':++iCnt; break;
+			case 'o':case 'O':++oCnt; break;
+			case 'u':case 'U':++uCnt; break;
+			default: ++notVowel;break;
+			}
+		}
 	}
 
+	cout<<"\n\n"
+		<< "Words read: " << wdCnt << "\n\n"
+		<< "the/The: " << theCnt << '\n'
+		<< "it/It: " << itCnt << "\n\n"
+		<< "non-vowels read: " << notVowel << "\n\n"
+		<< "a: " << aCnt << '\n'
+		<< "e: " << eCnt << '\n'
+		<< "i: " << iCnt << '\n'
+		<< "o: " << oCnt << '\n'
+		<< "u: " << uCnt << endl;
+		
+		
 	return 0;
-
 }
 
 
