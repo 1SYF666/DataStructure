@@ -2,6 +2,8 @@
 #include <cassert>
 #include <fstream>
 #include <string>
+#include <complex>
+#include <vector>
 using namespace std;
 //C++标准库中的名字都是在一个称作 std 的名字空间中声明的
 //using 指示符告诉编译器要使用在名字空间 std 中声明的名字
@@ -14,59 +16,46 @@ using namespace std;
 
 int main()
 {
-	int aCnt = 0, eCnt = 0, iCnt = 0, oCnt = 0, uCnt = 0,
-		theCnt = 0, itCnt = 0, wdCnt = 0, notVowel = 0;
+	string fileName;
+	
+	cout << "Please enter of file to open: ";
+	cin >> fileName;
 
-	string buf, the("the"), it("it");
-
-	while (cin>>buf)
+	if (fileName.empty())
 	{
-		++wdCnt;
-
-		cout << buf << ' ';
-
-		if (wdCnt % 12 == 0)
-		{
-			cout << endl;
-		}
-		if (buf == the || buf == "The")
-		{
-			++theCnt;
-		}
-		else
-		{
-			if (buf == it || buf == "It")
-			{
-				++itCnt;
-			}
-		}
-
-		for (int ix = 0; ix < buf.size(); ++ix)
-		{
-			switch (buf[ix])
-			{
-			case 'a':case 'A':++aCnt; break;
-			case 'e':case 'E':++eCnt; break;
-			case 'i':case 'I':++iCnt; break;
-			case 'o':case 'O':++oCnt; break;
-			case 'u':case 'U':++uCnt; break;
-			default: ++notVowel;break;
-			}
-		}
+		cerr << "fileName is empty().bailing out.bye!\n";
+		return -1;
 	}
 
-	cout<<"\n\n"
-		<< "Words read: " << wdCnt << "\n\n"
-		<< "the/The: " << theCnt << '\n'
-		<< "it/It: " << itCnt << "\n\n"
-		<< "non-vowels read: " << notVowel << "\n\n"
-		<< "a: " << aCnt << '\n'
-		<< "e: " << eCnt << '\n'
-		<< "i: " << iCnt << '\n'
-		<< "o: " << oCnt << '\n'
-		<< "u: " << uCnt << endl;
-		
-		
+	ifstream inFile(fileName.c_str());  
+
+	if (!inFile)
+	{
+		cerr << "unable to open file.bailing out.bye!\n";
+		return -2;
+	}
+
+	string inBuf;
+	vector<string> text;
+
+	while (inFile>>inBuf)
+	{
+		for (int ix = 0; ix < inBuf.size(); ++ix)
+		{
+			if ( (char ch = inBuf[ix]) == '.')
+			{
+				ch = '_';
+
+			}
+
+		}
+
+	}
+
+
+
+
+
 	return 0;
 }
 
