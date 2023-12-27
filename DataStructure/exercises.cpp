@@ -48,6 +48,38 @@ int main()
 	vector<string> text(textarray, textarray + 14);
 	vector<string>::iterator iter;
 
+	// ok:显示text
+	cout << "Here is our original string vector: \n\n";
+	int cnt = 1;
+	for (iter = text.begin(); iter != text.end(); ++iter, ++cnt)
+	{
+		cout << *iter << (cnt % 8 ? "" : "\n");
+	}
+	cout << "\n\n\n";
+
+	//包含统计信息的map——动态生成
+	map<string, int>stats;
+	typedef map<string, int>::value_type statsValType;
+
+	//ok:真正的map 工作——程序的核心
+	for (iter = text.begin(); iter != text.end(); ++iter)
+	{
+		if ((it = trans_map.find(*iter)) != trans_map.end())
+		{
+			if (stats.count(*iter))
+			{
+				stats[*iter] += 1;
+			}
+			else
+			{
+				stats.insert(statsValType(*iter, 1));
+			}
+			*iter = (*it).second;
+		}
+	}
+
+
+
 
 
 
