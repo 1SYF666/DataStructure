@@ -53,7 +53,7 @@ int main()
 	int cnt = 1;
 	for (iter = text.begin(); iter != text.end(); ++iter, ++cnt)
 	{
-		cout << *iter << (cnt % 8 ? "" : "\n");
+		cout << *iter << (cnt % 8 ? " " : "\n");
 	}
 	cout << "\n\n\n";
 
@@ -78,6 +78,30 @@ int main()
 		}
 	}
 
+	//ok: 显示被转换后的vector
+	cout << "Here is our transformed string vector: \n\n";
+	cnt = 1;
+
+	for (iter = text.begin(); iter != text.end(); ++iter, ++cnt)
+	{
+		cout << *iter << (cnt % 8 ? " ":"\n");
+	}
+
+	cout << endl << endl;
+
+	//ok: 现在对统计map进行迭代
+	cout << "Finally,here are our statistic:\n\n";
+	//map<string, int, less<string>, allocator>::iterator siter;
+	map<string, int, less<string>>::iterator siter;
+
+	for (siter = stats.begin(); siter != stats.end(); ++siter)
+	{
+		cout << (*siter).first << " "
+			<< "was transformed "
+			<< (*siter).second
+			<< ((*siter).second == 1 ?
+			 " time\n":" times\n");
+	}
 
 
 
