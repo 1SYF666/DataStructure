@@ -18,25 +18,10 @@ using namespace std;
 // __FILE__ 用以指示本行语句所在源文件的文件名
 // __LINE__ 用以指示本行语句所在源文件中的位置信息
 
-class Window_mgr
-{
-public:
-	//窗户中每个屏幕的编号
-	using ScreenIndex = std::vector<Screen>::size_type;
-	void clear{ ScreenIndex };
 
-private:
-	std::vector<Screen>screens{ Screen{24,80,' '} };
-};
 
-void window_mgr::clear{ ScreenIndex i}
-{
-	//s是一个Screen的引用，指向我们想要清空的那个屏幕
-	Screen& s = screens[i];
 
-	s.contents = string(s.height * s.width, ' ');
 
-}
 
 int main()
 {
