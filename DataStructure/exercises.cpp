@@ -18,16 +18,24 @@ using namespace std;
 // __FILE__ 用以指示本行语句所在源文件的文件名
 // __LINE__ 用以指示本行语句所在源文件中的位置信息
 
+#include <iostream>
+using namespace std;
 
-
-
-
+const int YARD_PER_LONG = 220;
 
 int main()
 {
+    double long_distance;
 
+    cout << "Enter a distance for long unit: ";
+    cin >> long_distance;
 
-	return 0;
+    cout << long_distance << " long distance ";
+    cout << "is equal to ";
+    long_distance *= YARD_PER_LONG;
+    cout << long_distance << " yard distance." << endl;
+
+    return 0;
 }
 
 
