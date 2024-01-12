@@ -25,17 +25,23 @@ const int YARD_PER_LONG = 220;
 
 int main()
 {
-    double long_distance;
+	//统计每个单词在输入中出现的次数
+	map<string, size_t>word_count;
+	string word;
+	while (cin >> word)
+	{
+		++word_count[word];
+	}
 
-    cout << "Enter a distance for long unit: ";
-    cin >> long_distance;
+	for (const auto& w : word_count)
+	{
+		cout << w.first << " occurs " << w.second
+			<< ((w.second > 1) ? " times" : " time")
+			<< endl;
+	}
 
-    cout << long_distance << " long distance ";
-    cout << "is equal to ";
-    long_distance *= YARD_PER_LONG;
-    cout << long_distance << " yard distance." << endl;
 
-    return 0;
+	return 0;
 }
 
 
