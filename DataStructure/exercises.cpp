@@ -21,26 +21,18 @@ using namespace std;
 #include <iostream>
 using namespace std;
 
-const int YARD_PER_LONG = 220;
-
-void show_time(int hour, int minute);
+const int INCH_PER_FEET = 12;
 
 int main()
 {
-	int hour, minute;
+	int height;
 
-	cout << "Enter the number of hours: ";
-	cin >> hour;
-	cout << "Enter the number of minutes: ";
-	cin >> minute;
-	show_time(hour, minute);
+	cout << "Please enter your height in inch: ___\b\b\b";
+	cin >> height;
+	cout << "Your height is " << height / INCH_PER_FEET << " feet and ";
+	cout << height % INCH_PER_FEET << " inches." << endl;
 
 	return 0;
-}
-
-void show_time(int hour, int minute)
-{
-	cout << "Time: " << hour << ":" << minute << endl;
 }
 
 
