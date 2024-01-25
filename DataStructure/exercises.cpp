@@ -21,31 +21,21 @@ using namespace std;
 #include <iostream>
 using namespace std;
 
-const int ArSize = 20;
-
 int main()
 {
-    char fname[ArSize];
-    char lname[ArSize];
+    string fname, lname;
 
     cout << "Enter your first name: ";
-    cin.getline(fname, ArSize);
+    getline(cin, fname);
     cout << "Enter your last name: ";
-    cin.getline(lname, ArSize);
+    getline(cin, lname);
 
-    char* name = new char[strlen(fname) + strlen(lname) + 5];
-    strcpy(name, lname);
-    strcat(name, ", ");
-    strcat(name, fname);
-
+    lname += ", " + fname;
     cout << "Here's the information in a single string: ";
-    cout << name << endl;
-    delete[] name;
+    cout << lname << endl;
 
     return 0;
 }
-
-
 
 
 
