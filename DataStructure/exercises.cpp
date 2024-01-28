@@ -18,21 +18,26 @@ using namespace std;
 // __FILE__ 用以指示本行语句所在源文件的文件名
 // __LINE__ 用以指示本行语句所在源文件中的位置信息
 
+
+// 4 -5
 #include <iostream>
+#include <string>
 using namespace std;
+
+struct CandyBar
+{
+    string brand;
+    double candy_weight;
+    int candy_calorie;
+};
 
 int main()
 {
-    string fname, lname;
+    CandyBar snack{ "Mocha Munch", 2.3, 350 };
 
-    cout << "Enter your first name: ";
-    getline(cin, fname);
-    cout << "Enter your last name: ";
-    getline(cin, lname);
-
-    lname += ", " + fname;
-    cout << "Here's the information in a single string: ";
-    cout << lname << endl;
+    cout << "Brand : " << snack.brand << endl;
+    cout << "Candy_weight: " << snack.candy_weight << endl;
+    cout << "Candy_calorie: " << snack.candy_calorie << endl;
 
     return 0;
 }
