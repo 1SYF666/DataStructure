@@ -24,28 +24,40 @@ using namespace std;
 #include <string>
 using namespace std;
 
-struct Pizza
+#include <iostream>
+#include <string>
+using namespace std;
+
+struct CandyBar
 {
-    string pizza_company;
-    double pizza_diameter;
-    double pizza_weight;
+    string brand;
+    double candy_weight;
+    int candy_calorie;
 };
 
 int main()
 {
-    Pizza* snack = new Pizza;
+    CandyBar* snack = new CandyBar[3];
 
-    cout << "Please enter the diameter of the pizza: ";
-    (cin >> snack->pizza_diameter).get();
-    cout << "Please enter the name of the Pizza Company: ";
-    getline(cin, snack->pizza_company);
-    cout << "Please enter the weight of the pizza: ";
-    cin >> snack->pizza_weight;
+    snack[0] = { "Mocha Munch", 2.3, 350 };
+    snack[1] = { "Mooncake", 3.5, 369 };
+    snack[2] = { "Birthdaycake", 6.8, 460 };
 
-    cout << "The name of the Pizza Company: " << snack->pizza_company << endl;
-    cout << "The diameter of the Pizza Company: " << snack->pizza_diameter << endl;
-    cout << "The weight of the Pizza Company: " << snack->pizza_weight << endl;
-    delete snack;
+    cout << "The first candy:" << endl;
+    cout << "Brand: " << snack[0].brand << endl;
+    cout << "Candy_weight: " << snack[0].candy_weight << endl;
+    cout << "Candy_calorie: " << snack[0].candy_calorie << endl;
+
+    cout << "\nThe second candy:" << endl;
+    cout << "Brand: " << snack[1].brand << endl;
+    cout << "Candy_weight: " << snack[1].candy_weight << endl;
+    cout << "Candy_calorie: " << snack[1].candy_calorie << endl;
+
+    cout << "\nThe third candy:" << endl;
+    cout << "Brand: " << snack[2].brand << endl;
+    cout << "Candy_weight: " << snack[2].candy_weight << endl;
+    cout << "Candy_calorie: " << snack[2].candy_calorie << endl;
+    delete[] snack;
 
     return 0;
 }
