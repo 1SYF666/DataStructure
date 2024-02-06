@@ -19,11 +19,7 @@ using namespace std;
 // __LINE__ 用以指示本行语句所在源文件中的位置信息
 
 
-// 4 -8
-#include <iostream>
-#include <string>
-using namespace std;
-
+// 4 -9
 #include <iostream>
 #include <string>
 using namespace std;
