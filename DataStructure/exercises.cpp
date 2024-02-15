@@ -19,25 +19,19 @@ using namespace std;
 // __LINE__ 用以指示本行语句所在源文件中的位置信息
 
 
-// 5 -9 - 2
+// 5 -9 - 3
 #include <iostream>
-#include <array>
 using namespace std;
-
-const int ArSize = 101;
 
 int main()
 {
-    array<long double, ArSize> factorials;
+    long long num;
+    long long sum = 0LL;
 
-    factorials[0] = factorials[1] = 1L;
-    for (int i = 2; i < ArSize; i++)
+    while (cout << "Please enter an integer(0 to quit): ", cin >> num && num != 0)
     {
-        factorials[i] = i * factorials[i - 1];
-    }
-    for (int i = 0; i < ArSize; i++)
-    {
-        cout << i << "! = " << factorials[i] << endl;
+        sum += num;
+        cout << "Sum of all integers are " << sum << endl;
     }
 
     return 0;
