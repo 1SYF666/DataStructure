@@ -19,23 +19,27 @@ using namespace std;
 // __LINE__ 用以指示本行语句所在源文件中的位置信息
 
 
-// 5 -9 - 3
+// 5 -9 - 4
 #include <iostream>
 using namespace std;
 
 int main()
 {
-    long long num;
-    long long sum = 0LL;
+    int n = 0;
+    double daphne_money = 100;
+    double cleo_money = 100;
 
-    while (cout << "Please enter an integer(0 to quit): ", cin >> num && num != 0)
+    while (cleo_money <= daphne_money)
     {
-        sum += num;
-        cout << "Sum of all integers are " << sum << endl;
+        cout << "Year " << ++n << ':' << endl;
+        daphne_money += 10;
+        cleo_money += cleo_money * 0.05;
+        cout << "Cleo's money = " << cleo_money;
+        cout << ", Daphne's money = " << daphne_money << endl;
     }
+    cout << "After " << n << " years, Cleo's money > Daphne's money.";
 
     return 0;
 }
-
 
 
