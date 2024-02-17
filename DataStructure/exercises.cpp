@@ -19,25 +19,42 @@ using namespace std;
 // __LINE__ 用以指示本行语句所在源文件中的位置信息
 
 
-// 5 -9 - 4
+// 5 -9 - 5
 #include <iostream>
+#include <string>
 using namespace std;
+
+const int ArSize = 12;
 
 int main()
 {
-    int n = 0;
-    double daphne_money = 100;
-    double cleo_money = 100;
+    const string months[ArSize] = {
+        "January",
+        "February",
+        "March",
+        "April",
+        "May",
+        "June",
+        "July",
+        "August",
+        "September",
+        "October",
+        "November",
+        "December",
+    };
+    int sum = 0, sales_volume[ArSize];
 
-    while (cleo_money <= daphne_money)
+    for (int i = 0; i < ArSize; i++)
     {
-        cout << "Year " << ++n << ':' << endl;
-        daphne_money += 10;
-        cleo_money += cleo_money * 0.05;
-        cout << "Cleo's money = " << cleo_money;
-        cout << ", Daphne's money = " << daphne_money << endl;
+        cout << "Please enter number of books sold (";
+        cout << months[i] << "): ";
+        cin >> sales_volume[i];
     }
-    cout << "After " << n << " years, Cleo's money > Daphne's money.";
+    for (int i = 0; i < ArSize; i++)
+    {
+        sum += sales_volume[i];
+    }
+    cout << "A total of " << sum << " <<C++ For Fools>> books were sold in a year." << endl;
 
     return 0;
 }
