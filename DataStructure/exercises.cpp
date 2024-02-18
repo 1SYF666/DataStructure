@@ -24,7 +24,10 @@ using namespace std;
 #include <string>
 using namespace std;
 
+const int NUM = 3;
 const int ArSize = 12;
+
+int show_result(int(*x)[ArSize], int n);
 
 int main()
 {
@@ -42,21 +45,40 @@ int main()
         "November",
         "December",
     };
-    int sum = 0, sales_volume[ArSize];
+    int sum, total, sales_volume[NUM][ArSize];
 
-    for (int i = 0; i < ArSize; i++)
+    for (int i = 0; i < NUM; i++)
     {
-        cout << "Please enter number of books sold (";
-        cout << months[i] << "): ";
-        cin >> sales_volume[i];
+        cout << "Year " << i + 1 << ": " << endl;
+        for (int j = 0; j < ArSize; j++)
+        {
+            cout << "Please enter number of books sold (";
+            cout << months[j] << "): ";
+            cin >> sales_volume[i][j];
+        }
+        cout << endl;
     }
-    for (int i = 0; i < ArSize; i++)
-    {
-        sum += sales_volume[i];
-    }
-    cout << "A total of " << sum << " <<C++ For Fools>> books were sold in a year." << endl;
+
+    sum = total = show_result(sales_volume, 0);
+    cout << "A total of " << sum << " <<C++ For Fools>> books were sold in the first year." << endl;
+    total += sum = show_result(sales_volume, 1);
+    cout << "A total of " << sum << " <<C++ For Fools>> books were sold in the second year." << endl;
+    total += sum = show_result(sales_volume, 2);
+    cout << "A total of " << sum << " <<C++ For Fools>> books were sold in the third year." << endl;
+    cout << "A total of " << total << " <<C++ For Fools>> books were sold in three years." << endl;
 
     return 0;
+}
+
+int show_result(int(*x)[ArSize], int n)
+{
+    int sum = 0;
+
+    for (int i = 0; i < ArSize; i++)
+    {
+        sum += x[n][i];
+    }
+    return sum;
 }
 
 
