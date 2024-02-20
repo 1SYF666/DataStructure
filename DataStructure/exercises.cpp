@@ -19,66 +19,44 @@ using namespace std;
 // __LINE__ 用以指示本行语句所在源文件中的位置信息
 
 
-// 5 -9 - 5
+// 5 -9 - 7
 #include <iostream>
 #include <string>
 using namespace std;
 
-const int NUM = 3;
-const int ArSize = 12;
-
-int show_result(int(*x)[ArSize], int n);
+struct car
+{
+    string producer;
+    int year_of_introducion;
+};
 
 int main()
 {
-    const string months[ArSize] = {
-        "January",
-        "February",
-        "March",
-        "April",
-        "May",
-        "June",
-        "July",
-        "August",
-        "September",
-        "October",
-        "November",
-        "December",
-    };
-    int sum, total, sales_volume[NUM][ArSize];
+    int num;
 
-    for (int i = 0; i < NUM; i++)
+    cout << "How many cars do you wish to catalog? ";
+    (cin >> num).get();
+    car* many_cars = new car[num];
+
+    for (int i = 0; i < num; i++)
     {
-        cout << "Year " << i + 1 << ": " << endl;
-        for (int j = 0; j < ArSize; j++)
-        {
-            cout << "Please enter number of books sold (";
-            cout << months[j] << "): ";
-            cin >> sales_volume[i][j];
-        }
-        cout << endl;
+        cout << "Car #" << i + 1 << ':' << endl;
+        cout << "Please enter the make: ";
+        getline(cin, many_cars[i].producer);
+        cout << "Please enter the year made: ";
+        (cin >> many_cars[i].year_of_introducion).get();
     }
 
-    sum = total = show_result(sales_volume, 0);
-    cout << "A total of " << sum << " <<C++ For Fools>> books were sold in the first year." << endl;
-    total += sum = show_result(sales_volume, 1);
-    cout << "A total of " << sum << " <<C++ For Fools>> books were sold in the second year." << endl;
-    total += sum = show_result(sales_volume, 2);
-    cout << "A total of " << sum << " <<C++ For Fools>> books were sold in the third year." << endl;
-    cout << "A total of " << total << " <<C++ For Fools>> books were sold in three years." << endl;
+    cout << "Here is your collection:" << endl;
+    for (int i = 0; i < num; i++)
+    {
+        cout << many_cars[i].year_of_introducion;
+        cout << ' ' << many_cars[i].producer << endl;
+    }
+    delete[] many_cars;
 
     return 0;
 }
 
-int show_result(int(*x)[ArSize], int n)
-{
-    int sum = 0;
-
-    for (int i = 0; i < ArSize; i++)
-    {
-        sum += x[n][i];
-    }
-    return sum;
-}
 
 
