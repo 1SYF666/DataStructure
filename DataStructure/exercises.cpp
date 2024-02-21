@@ -19,41 +19,24 @@ using namespace std;
 // __LINE__ 用以指示本行语句所在源文件中的位置信息
 
 
-// 5 -9 - 7
+// 5 -9 - 8
 #include <iostream>
-#include <string>
+#include <cstring>
 using namespace std;
 
-struct car
-{
-    string producer;
-    int year_of_introducion;
-};
+const int ArSize = 256;
 
 int main()
 {
-    int num;
+    char str[ArSize];
+    unsigned int count = 0;
 
-    cout << "How many cars do you wish to catalog? ";
-    (cin >> num).get();
-    car* many_cars = new car[num];
-
-    for (int i = 0; i < num; i++)
+    cout << "Enter words (to stop, type the word done):" << endl;
+    while (cin >> str, strcmp("done", str))
     {
-        cout << "Car #" << i + 1 << ':' << endl;
-        cout << "Please enter the make: ";
-        getline(cin, many_cars[i].producer);
-        cout << "Please enter the year made: ";
-        (cin >> many_cars[i].year_of_introducion).get();
+        ++count;
     }
-
-    cout << "Here is your collection:" << endl;
-    for (int i = 0; i < num; i++)
-    {
-        cout << many_cars[i].year_of_introducion;
-        cout << ' ' << many_cars[i].producer << endl;
-    }
-    delete[] many_cars;
+    cout << "You entered a total of " << count << " words." << endl;
 
     return 0;
 }
