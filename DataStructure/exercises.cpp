@@ -19,20 +19,18 @@ using namespace std;
 // __LINE__ 用以指示本行语句所在源文件中的位置信息
 
 
-// 5 -9 - 8
+// 5 -9 - 9
 #include <iostream>
-#include <cstring>
+#include <string>
 using namespace std;
-
-const int ArSize = 256;
 
 int main()
 {
-    char str[ArSize];
+    string str;
     unsigned int count = 0;
 
     cout << "Enter words (to stop, type the word done):" << endl;
-    while (cin >> str, strcmp("done", str))
+    while (cin >> str, str != "done")
     {
         ++count;
     }
