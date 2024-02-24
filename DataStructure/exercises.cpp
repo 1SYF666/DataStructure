@@ -19,25 +19,30 @@ using namespace std;
 // __LINE__ 用以指示本行语句所在源文件中的位置信息
 
 
-// 5 -9 - 9
+// 5 -9 - 10
 #include <iostream>
-#include <string>
 using namespace std;
 
 int main()
 {
-    string str;
-    unsigned int count = 0;
+    int row;
 
-    cout << "Enter words (to stop, type the word done):" << endl;
-    while (cin >> str, str != "done")
+    cout << "Enter number of rows: ";
+    cin >> row;
+    for (int i = 1; i <= row; i++)
     {
-        ++count;
+        for (int j = i; j <= row - 1; j++)
+        {
+            cout << ".";
+        }
+        for (int j = 1; j <= i; j++)
+        {
+            cout << "*";
+        }
+        cout << endl;
     }
-    cout << "You entered a total of " << count << " words." << endl;
 
     return 0;
 }
-
 
 
