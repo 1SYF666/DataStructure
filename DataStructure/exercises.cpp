@@ -19,30 +19,34 @@ using namespace std;
 // __LINE__ 用以指示本行语句所在源文件中的位置信息
 
 
-// 5 -9 - 10
+// 8 - 1
 #include <iostream>
 using namespace std;
 
+void print_string(const char* str, int n = 0);
+
 int main()
 {
-    int row;
+    const char* str = "This is a test.";
 
-    cout << "Enter number of rows: ";
-    cin >> row;
-    for (int i = 1; i <= row; i++)
-    {
-        for (int j = i; j <= row - 1; j++)
-        {
-            cout << ".";
-        }
-        for (int j = 1; j <= i; j++)
-        {
-            cout << "*";
-        }
-        cout << endl;
-    }
+    cout << "Only one parameter, print 1 times:" << endl;
+    print_string(str);
+    cout << "Having two parameter can print 2 times:" << endl;
+    print_string(str, 3);
+    cout << "Bye." << endl;
 
     return 0;
+}
+
+void print_string(const char* str, int n)
+{
+    static int count = 1;
+
+    for (int i = 0; i < count; ++i)
+    {
+        cout << str << endl;
+    }
+    ++count;
 }
 
 
