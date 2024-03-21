@@ -133,7 +133,6 @@
     <ClCompile Include="graph.cpp" />
     <ClCompile Include="huffmantree.cpp" />
     <ClCompile Include="list.cpp" />
-    <ClCompile Include="test.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Dijkstra.h" />
