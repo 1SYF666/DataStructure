@@ -33,12 +33,18 @@
     <ClCompile Include="Dijkstra.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="function.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="list.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="Dijkstra.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="function.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
