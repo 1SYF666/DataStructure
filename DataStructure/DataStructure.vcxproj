@@ -128,7 +128,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Dijkstra.cpp" />
-    <ClCompile Include="exercises.cpp" />
+    <ClCompile Include="test.cpp" />
     <ClCompile Include="function.cpp" />
     <ClCompile Include="graph.cpp" />
     <ClCompile Include="huffmantree.cpp" />

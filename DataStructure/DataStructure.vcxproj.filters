@@ -24,7 +24,7 @@
     <ClCompile Include="list.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="exercises.cpp">
+    <ClCompile Include="test.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="Dijkstra.cpp">
